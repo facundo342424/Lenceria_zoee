@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+        {% extends 'base.html' %}
+
+{% block content %}
+
+<h3>perfil</h3>
+{% if request.user.is_authenticated %}
+        <hr>
+        <h4> Nombre : {{ user.username | upper }}, </h4>
+        <h4> Edad : {{ user.age | upper }}, </h4>
+{% endif %}
+
+
+
+{% endblock %}
+        
+</body>
+</html>
