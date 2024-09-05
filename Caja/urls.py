@@ -1,8 +1,9 @@
+# Caja/urls.py
+
 from django.urls import path
-from . import views
+from .views import Apertura_de_caja, Cierre
 
 urlpatterns = [
-    path('', views.home_view, name='home'),  # Asegúrate de que esta vista esté definida
-    # Agrega otras URLs aquí si es necesario
+    path('Apertura/', Apertura_de_caja, name='apertura_de_caja'),
+    path('Cierre/', Cierre, name='cierre_de_caja'),
 ]
-

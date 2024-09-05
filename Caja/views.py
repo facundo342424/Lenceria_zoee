@@ -1,5 +1,17 @@
-from django.shortcuts import render
+# Caja/views.py
 
-def home_view(request):
-    return render(request, 'index.html')  # Asegúrate de que 'home.html' exista en la carpeta de templates
+# Caja/views.py
+
+from django.shortcuts import render
+from .models import Caja
+
+def Apertura_de_caja(request):
+    cajas = Caja.objects.filter(fecha_cierre_caja__isnull=True)
+    return render(request, 'Apertura_de_caja', {'cajas': cajas})
+
+def Cierre(request):
+    cajas = Caja.objects.filter(fecha_cierre_caja__isnull=False)
+    return render(request, 'Cierre.html', {'cajas': cajas})
+
+
 

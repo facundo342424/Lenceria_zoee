@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apertura de Caja</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Apertura de Caja</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Caja</th>
+                <th>ID Empleado</th>
+                <th>ID Factura</th>
+                <th>Fecha Apertura</th>
+                <th>Monto Inicial</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for caja in cajas %}
+            <tr>
+                <td>{{ caja.id_caja }}</td>
+                <td>{{ caja.id_empleado }}</td>
+                <td>{{ caja.id_factura }}</td>
+                <td>{{ caja.fecha_apertura_caja }}</td>
+                <td>{{ caja.monto_inicial_caja }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

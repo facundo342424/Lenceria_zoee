@@ -14,14 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
+ # proyecto_z/urls.py
 
+from django.contrib import admin
+from django.urls import path, include
+from Caja.views import Apertura_de_caja  # Importa la vista que quieres mostrar en la raíz
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Caja.urls')),
-   
-    
+    path('', Apertura_de_caja, name='apertura_de_caja'),  # Ruta para la raíz
+    path('caja/', include('Caja.urls')),  # Rutas de la aplicación Caja
 ]
+
+
 

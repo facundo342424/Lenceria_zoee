@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cierre de Caja</title>
+    <link rel="stylesheet" href="{% load static %}">
+</head>
+<body>
+    <h1>Cierre de Caja</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Caja</th>
+                <th>ID Empleado</th>
+                <th>ID Factura</th>
+                <th>Fecha Cierre</th>
+                <th>Total Ingresos</th>
+                <th>Total Egresos</th>
+                <th>Total Caja</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for caja in cajas %}
+            <tr>
+                <td>{{ caja.id_caja }}</td>
+                <td>{{ caja.id_empleado }}</td>
+                <td>{{ caja.id_factura }}</td>
+                <td>{{ caja.fecha_cierre_caja }}</td>
+                <td>{{ caja.total_ingresos_caja }}</td>
+                <td>{{ caja.total_egresos_caja }}</td>
+                <td>{{ caja.total_caja }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
