@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
         .table-container table {
-            width: 100%;
+            width: 70%;
             border-collapse: collapse;
         }
 
@@ -43,8 +43,8 @@
             width: 20%;
         }
 
-        .table-container th:nth-child(5),
-        .table-container td:nth-child(5) {
+        .table-container th:nth-child(4),
+        .table-container td:nth-child(4) {
             width: 20%;
         }
     </style>
@@ -55,11 +55,14 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID Caja</th>
+         <th>ID Caja</th>
                     <th>ID Empleado</th>
                     <th>ID Factura</th>
                     <th>Fecha Apertura</th>
                     <th>Monto Inicial</th>
+                    <th>Total ingresos</th>
+                    <th>Total egresos </th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,6 +73,9 @@
                     <td>{{ caja.id_factura }}</td>
                     <td>{{ caja.fecha_apertura_caja }}</td>
                     <td>{{ caja.monto_inicial_caja }}</td>
+                    <td>{{ caja.total_ingresos_caja }}</td>
+                    <td>{{ caja.total_egresos_caja }}</td>
+                    <td>{{ caja_total_caja }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
