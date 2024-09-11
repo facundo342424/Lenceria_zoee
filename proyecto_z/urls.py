@@ -18,12 +18,22 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from Caja.views import Apertura_de_caja  # Importa la vista que quieres mostrar en la raíz
+from Productos.views import lista,formulario,borrar
+from Caja.views import Inicio,Apertura_de_caja 
+ # Importa la vista que quieres mostrar en la raíz
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Apertura_de_caja, name='apertura_de_caja'),  # Ruta para la raíz
-    path('caja/', include('Caja.urls')),  # Rutas de la aplicación Caja
+    path('',lista,name='lista'),
+    path('',formulario, name='formulario'),
+    path('',borrar, name='borrar'),
+    path('',Inicio, name='inicio'),# Ruta para la raíz
+    path('',Apertura_de_caja, name='apertura_de_caja'),
+    path('Productos/',include('Productos.urls')),
+    path('caja/', include('Caja.urls')), 
+    
+    
+     # Rutas de la aplicación Caja
 ]
 
 

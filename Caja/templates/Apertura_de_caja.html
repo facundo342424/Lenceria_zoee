@@ -42,11 +42,6 @@
         .table-container td:nth-child(4) {
             width: 20%;
         }
-
-        .table-container th:nth-child(4),
-        .table-container td:nth-child(4) {
-            width: 20%;
-        }
     </style>
 </head>
 <body>
@@ -55,13 +50,13 @@
         <table>
             <thead>
                 <tr>
-         <th>ID Caja</th>
+                    <th>ID Caja</th>
                     <th>ID Empleado</th>
                     <th>ID Factura</th>
                     <th>Fecha Apertura</th>
                     <th>Monto Inicial</th>
-                    <th>Total ingresos</th>
-                    <th>Total egresos </th>
+                    <th>Total Ingresos</th>
+                    <th>Total Egresos</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -75,14 +70,24 @@
                     <td>{{ caja.monto_inicial_caja }}</td>
                     <td>{{ caja.total_ingresos_caja }}</td>
                     <td>{{ caja.total_egresos_caja }}</td>
-                    <td>{{ caja_total_caja }}</td>
+                    <td>{{ caja.total_caja }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+
+    <div class="form-container">
+        <h2>Añadir Nueva Caja</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Agregar Caja</button>
+        </form>
+    </div>
 </body>
 </html>
+
 
 
 
