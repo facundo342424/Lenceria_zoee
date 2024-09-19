@@ -1,17 +1,11 @@
-# views.py
-from django.views.generic import ListView, CreateView,  DeleteView
+from django.http.response import JsonResponse
+from django.shortcuts import render
 from .models import Productos
 
-class ProductListView(ListView):
-    model = Productos
-    template_name = 'lista.html'
 
-class ProductCreateView(CreateView):
-    model = Productos
-    template_name = 'formulario.html'
-    success_url = '/productos/'
-
-class ProductDeleteView(DeleteView):
-    model = Productos
-    template_name = 'borrar.html'
-    success_url = '/productos/'
+def lista(request):
+    return render (request, 'lista.html') 
+def lista_Productos(_request):
+    Productosr=list(Productos.objects.values())
+    data={'Productos':Productos}
+    return JsonResponse(data)
