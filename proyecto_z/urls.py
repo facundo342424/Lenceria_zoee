@@ -17,18 +17,13 @@ Including another URLconf
  # proyecto_z/urls.py
 
 from django.contrib import admin
-from django.urls import path, include
-from Productos.views import lista
-from Caja.views import Apertura_de_caja 
+from django.urls import path
+from django.urls.conf import include
  # Importa la vista que quieres mostrar en la raíz
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',lista,name='lista'),
-    path('',Apertura_de_caja, name='apertura_de_caja'),
-    path('Productos/',include('Productos.urls')),
-    path('caja/', include('Caja.urls')), 
-    
+    path('',include('Productos.urls')),
     
      # Rutas de la aplicación Caja
 ]

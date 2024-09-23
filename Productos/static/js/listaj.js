@@ -31,6 +31,9 @@ const lista_Productos = async () => {
         let content = ``;
         data.programmers.forEach((Productos, index) => {
             content += `
+
+
+            
                 <tr>
                     <td>${index + 1}</td>
                     <td>${Productos.Nombre}</td>
