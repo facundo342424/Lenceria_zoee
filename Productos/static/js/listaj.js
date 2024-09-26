@@ -4,10 +4,10 @@ let dataTableIsInitialized = false;
 const dataTableOptions = {
     columnDefs: [
         { className: "centered", targets: [0, 1, 2, 3, 4, 5, 6] },
-        { orderable: false, targets: [5, 6] },
-        { searchable: false, targets: [0, 5, 6] }
+        { orderable: false, targets: [8, 8] },
+        { searchable: false, targets: [0, 8, 8] }
     ],
-    pageLength: 4,
+    pageLength: 6,
     destroy: true
 };
 
