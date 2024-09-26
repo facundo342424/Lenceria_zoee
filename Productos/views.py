@@ -37,7 +37,6 @@ def borrar_prod(request, id_Producto):
     return redirect('lista')  
 
 
-
 def editar(request, id_Producto):
     editar_producto = Productos.objects.get(id_Producto=id_Producto)  
     producto_lista = Productos.objects.all()
