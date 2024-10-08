@@ -63,7 +63,7 @@ ROOT_URLCONF = 'nacho01.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,5 +138,10 @@ LOGOUT_REDIRECT_URL = 'inicio'
 # directorio de imagenes
 
 STATICFILES_DIRS = [STATIC_DIR,]
+
+
+## restablecer contrase;a
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 

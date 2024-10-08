@@ -7,11 +7,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <style>
+    <style>  /*  es el fondo de pantalla de zoe, hay que enviarlo a todos los html no se olbiden pelotudos */  
         body, html {
             height: 100%;
-            margin: 0;
+            margin: 0; 
+            padding: 0;
+            width: 100%;
             font-family: Arial, sans-serif;
+            background-color:  rgb(244, 236, 225);
         }
 
         .imagen-completa {
@@ -20,8 +23,9 @@
             background-position: center;
             background-repeat: no-repeat;
             height: 90vh; /* Altura completa de la ventana del navegador */
-            width: 90vw;  /* Ancho completo de la ventana del navegador */
+            max-width: 100%;  /* Ancho completo de la ventana del navegador Responsivo aplicado*/
             position: relative; /* Posiciona el contenedor para el contenido */
+            opacity: 0.3;
         }
         .contenido {
             position: absolute; /* Posiciona el contenido sobre la imagen de fondo */
@@ -32,14 +36,14 @@
             text-align: center;
             padding: 20px;
             z-index: 1; /* Asegura que el contenido esté por encima de la imagen */
+
         }
     </style>
 </head>
 <body>
     <div class="imagen-completa">
-        <div class="contenido">
+        <div class="container-fluid">
             {% if request.user.is_authenticated %}
-                <hr>
                 <h4>{{ request.user.username|upper }}, bienvenido guapetón ;P</h4>
             {% endif %}
         </div>

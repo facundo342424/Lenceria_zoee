@@ -4,6 +4,8 @@ from django.contrib.auth import logout
 from . forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 
+
+
 # Create your views here.
 def inicio(request):
     return render(request, 'inicio.html')
