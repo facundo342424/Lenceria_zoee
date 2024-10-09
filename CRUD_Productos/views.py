@@ -30,7 +30,7 @@ def Guardar_producto(request):
     return  render(request,'lista.html',valor)
 
 
-   
+
 def borrar_prod(request, id_Producto):
     producto = Productos.objects.get(id_Producto=id_Producto)
     producto.delete()
