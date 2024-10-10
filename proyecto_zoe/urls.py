@@ -16,10 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from CRUD_Empleados.views import hola
+from CRUD_Empleados.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',hola, name='hola'),  # Ruta para la raíz
-    path('CRUD_Empleados/', include('CRUD_Empleados.urls')),  # Rutas de la aplicación Caja
+    path('admin/', admin.site.urls), # Ruta para la raíz
+    path('',include('CRUD_Empleados.urls')),  # Rutas de la aplicación Caja
 ]
