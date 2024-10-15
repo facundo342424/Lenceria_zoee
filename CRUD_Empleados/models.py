@@ -8,7 +8,7 @@ class empleados(models.Model):
     Telefono = models.DecimalField(max_digits=10, decimal_places=2)
     correo_electronico= models.CharField(max_length=50)
     DNI = models.DecimalField(max_digits=10, decimal_places=2)
-    Direccion= models.CharField(max_length=100)
+    Dirección = models.CharField(max_length=250)
     Localidad= models.CharField(max_length=100)
 
     def __str__(self):
