@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>PERFIL</h3>
+{% if request.user.is_authenticated %}
+        <hr>
+        <h4> Nombre de usuario:   {{ user.username | upper }} </h4>
+        <h4> Nombre :   {{ user.first_name | upper }} </h4>
+        <h4> Email :    {{ user.email | upper }} </h4>
+{% endif %}
+
+
+
+{% endblock %}

@@ -31,11 +31,15 @@ def Añadir_empleados(request):
         )
         empleado_instance.save()
         messages.success(request, 'Empleado añadido correctamente.')
+<<<<<<< HEAD
     else:
         pass
     
     return redirect('listaEmpleados')
 
+=======
+        return redirect('listaEmpleados')  # Redirigir después de guardar
+>>>>>>> main
 
 def borrar_empleado(request, id_Empleado):
     empleado_instance = empleados.objects.get(id_Empleado=id_Empleado)   
@@ -43,9 +47,14 @@ def borrar_empleado(request, id_Empleado):
     messages.info(request, 'Empleado eliminado correctamente.')
     return redirect('listaEmpleados')
 
+<<<<<<< HEAD
 
 def editar(request, id_Empleado):
     editar_empleado = empleados.objects.get(id_Empleado=id_Empleado)  
+=======
+def editar(request, id_Empleado):
+    editar_empleado = empleados.objects.get(id_Empleado=id_Empleado)
+>>>>>>> main
     empleados_lista = empleados.objects.all()
     valor = {
         'editar_empleado': editar_empleado, 
@@ -53,7 +62,10 @@ def editar(request, id_Empleado):
     }
     return render(request, 'listaEmpleados.html', valor)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 def edicion(request, id_Empleado):
     empleado_instance = empleados.objects.get(id_Empleado=id_Empleado) 
 
@@ -66,8 +78,17 @@ def edicion(request, id_Empleado):
         empleado_instance.Dirección = request.POST['Dirección']
         empleado_instance.Localidad = request.POST['Localidad']
         empleado_instance.save()  
+<<<<<<< HEAD
     
     return redirect('listaEmpleados')
 
 
+=======
+        messages.success(request, 'Empleado actualizado correctamente.')
+
+    return redirect('listaEmpleados')
+
+
+
+>>>>>>> main
     
