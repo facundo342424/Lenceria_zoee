@@ -7,6 +7,7 @@
             const cells = row.getElementsByTagName('td');
             let found = false;
 
+            
             for (let i = 0; i < cells.length; i++) {
                 if (cells[i].innerText.toLowerCase().includes(filter)) {
                     found = true;

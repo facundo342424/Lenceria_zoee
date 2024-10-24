@@ -1,11 +1,14 @@
+# urls.py
 from django.urls import path
-from.views import *
-
- # Importa la vista que quieres mostrar en la raíz
+from .views import *
 
 urlpatterns = [
-    path('',listaprov,name='listaprov'),
+    path('', listaprov, name='lista'),
+    path('Guardar_producto/', Guardar_producto, name='Guardar_producto'),
+    path('borrar_prod/<int:id_Producto>/', borrar_prod, name='borrar_prod'),
+    path('editar/<int:id_Producto>/', editar, name='editar'),
+    path('edicion/<int:id_Producto>/', edicion, name='edicion'),
+    path('',productos,name='productos'),
 
-    
-   
+
 ]
