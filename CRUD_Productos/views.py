@@ -21,17 +21,17 @@ def Guardar_producto(request):
         producto.save()
         messages.success(request, '¡Producto guardado con éxito!')
         
-        # Redireccionar a la vista de lista después de guardar el producto
+       
         return redirect('lista')
     
-    # Si no es POST, redirigir a la lista
+   
     return redirect('lista')
 
 def borrar_prod(request, id_Producto):
     producto = Productos.objects.get(id_Producto=id_Producto)
     producto.delete()
     messages.info(request, 'Producto eliminado')
-    # Redireccionar a la lista después de eliminar el producto
+   
     return redirect('lista')
 
 def editar(request, id_Producto):
@@ -52,9 +52,9 @@ def edicion(request, id_Producto):
         producto.Color = request.POST['Color']
         producto.save()
         messages.success(request, 'Producto actualizado con éxito')
-        # Redireccionar a la lista después de la edición
+        
         return redirect('lista')
-    # Si no es POST, redirigir a la lista
+
     return redirect('lista')
 
 def productos(request):

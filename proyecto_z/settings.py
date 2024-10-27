@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'CRUD_Caja',
     'django_bootstrap5',
     'CRUD_Productos',
-    'CRUD_Proveedores',
     'Login',
     
     
