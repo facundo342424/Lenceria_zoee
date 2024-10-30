@@ -20,5 +20,5 @@ from CRUD_Empleados.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls), # Ruta para la raíz
-    path('',include('CRUD_Empleados.urls')),  # Rutas de la aplicación Caja
+    path('',include('CRUD_Empleados.urls')), 
 ]

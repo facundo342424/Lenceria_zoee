@@ -4,91 +4,67 @@ from .models import empleados
 from django.contrib import messages
 
 def listaEmpleados(request):
-    empleados_lista = empleados.objects.all()
+    empleado_lista = empleados.objects.all()
     valor = {
-        'empleados_lista': empleados_lista
+        'empleado_lista': empleado_lista
     }
     return render(request, 'listaEmpleados.html', valor)
 
-def Añadir_empleados(request):
+def Guardar_empleado(request):
     if request.method == 'POST':
         Nombre = request.POST['Nombre']
         Apellido = request.POST['Apellido']
         Telefono = request.POST['Telefono']
-        correo_electronico = request.POST['correo_electronico']  
-        dni = request.POST['DNI']
+        correo_electronico = request.POST['correo_electronico']
+        DNI = request.POST['DNI']
         Dirección = request.POST['Dirección']
         Localidad = request.POST['Localidad']
+
         
-        empleado_instance = empleados(
-            Nombre=Nombre, 
-            Apellido=Apellido, 
-            Telefono=Telefono, 
-            correo_electronico=correo_electronico,
-            DNI=dni,
-            Dirección=Dirección,
-            Localidad=Localidad,
-        )
-        empleado_instance.save()
-        messages.success(request, 'Empleado añadido correctamente.')
-<<<<<<< HEAD
-    else:
-        pass
+        empleado = empleados(Nombre=Nombre, Apellido=Apellido,Telefono=Telefono, correo_electronico=correo_electronico,DNI=DNI,Dirección=Dirección,Localidad=Localidad)
+        empleado.save()
+        messages.success(request, '¡Empleado guardado con éxito!')
+        
+       
+        return redirect('listaEmpleados')
     
+   
     return redirect('listaEmpleados')
 
-=======
-        return redirect('listaEmpleados')  # Redirigir después de guardar
->>>>>>> main
-
-def borrar_empleado(request, id_Empleado):
-    empleado_instance = empleados.objects.get(id_Empleado=id_Empleado)   
-    empleado_instance.delete()
-    messages.info(request, 'Empleado eliminado correctamente.')
+def borrar_empl(request, id_Empleado):
+    empleado = empleados.objects.get(id_Empleado=id_Empleado)
+    empleado.delete()
+    messages.info(request, 'Empleado eliminado')
+   
     return redirect('listaEmpleados')
-
-<<<<<<< HEAD
 
 def editar(request, id_Empleado):
     editar_empleado = empleados.objects.get(id_Empleado=id_Empleado)  
-=======
-def editar(request, id_Empleado):
-    editar_empleado = empleados.objects.get(id_Empleado=id_Empleado)
->>>>>>> main
-    empleados_lista = empleados.objects.all()
+    empleado_lista = empleados.objects.all()
     valor = {
-        'editar_empleado': editar_empleado, 
-        'empleados_lista': empleados_lista
+        'editar_empleado': editar_empleado,
+        'empleado_lista': empleado_lista,
     }
     return render(request, 'listaEmpleados.html', valor)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 def edicion(request, id_Empleado):
-    empleado_instance = empleados.objects.get(id_Empleado=id_Empleado) 
-
+    empleado = empleados.objects.get(id_Empleado=id_Empleado)
     if request.method == 'POST':
-        empleado_instance.Nombre = request.POST['Nombre']
-        empleado_instance.Apellido = request.POST['Apellido']
-        empleado_instance.Telefono = request.POST['Telefono']
-        empleado_instance.correo_electronico = request.POST['correo_electronico']  
-        empleado_instance.DNI = request.POST['DNI']
-        empleado_instance.Dirección = request.POST['Dirección']
-        empleado_instance.Localidad = request.POST['Localidad']
-        empleado_instance.save()  
-<<<<<<< HEAD
-    
-    return redirect('listaEmpleados')
-
-
-=======
-        messages.success(request, 'Empleado actualizado correctamente.')
+        empleado.Nombre = request.POST['Nombre']
+        empleado.Apellido = request.POST['Apellido']
+        empleado.Telefono = request.POST['Telefono']
+        empleado.correo_electronico = request.POST['correo_electronico']
+        empleado.DNI = request.POST['DNI']
+        empleado.Dirección = request.POST['Dirección']
+        empleado.Localidad = request.POST['Localidad']
+        empleado.save()
+        messages.success(request, 'Empleado actualizado con éxito')
+        
+        return redirect('listaEmpleados')
 
     return redirect('listaEmpleados')
 
 
-
->>>>>>> main
     
+    
+

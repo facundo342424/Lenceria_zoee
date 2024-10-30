@@ -1,107 +1,104 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CRUD Empleados</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+    <title>CRUD_PROVEEDORES</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    
+
     <style>
         body {
-            background-color: rgba(244, 236, 225, 0.24);
+            background-color: #f8d7dab0; 
+            
         }
         table {
             background-color: white;
         }
         
-        .search-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
+        button:hover {
+            background-color:#34403f00;
         }
-        .search-container input {
-            padding-left: 30px;
+        .modal-content {
+            background-color: #f1f1f1;  
+            border-radius: 10px;
+            box-shadow: rgba(188, 143, 143, 0.555);
         }
-        .search-container .fa-search {
-            position: relative;
-            left: 25px;
-            top: 8px;
-            color: #aaa;
+        .modal-header {
+            background-color: #343a40;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
+        .modal-body {
+            padding: 20px;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .table {
+            border-color: #343a40da;
+        }
+        .fila-edit {
+            background-color: rgba(0, 0, 0, 0.336); 
+        }
+        thead tr {
+        background-color: #343a40; 
+        color: rgb(255, 255, 255); 
+        }
+        .btn-success {
+        background-color: rgba(0, 162, 255, 0.747); 
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+       }
+       .btn-success:hover {
+        background-color: rgba(0, 0, 0, 0.486); 
+       }
+                
     </style>
 </head>
 <body>
-    <h1 class="text-center mt-4">Empleados</h1>
+    <h1 class="text-center mt-4">Lista de Empleados</h1>
     <div class="container mt-4">
         <div class="row">
-            <div class="col-12">
-                <div class="table-responsive">
-                    <div class="text-center mb-3">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
-                            Añadir Empleado
-                        </button>
-                    </div>
-                    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addEmployeeModalLabel">Añadir Nuevo Empleado</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="employeeForm">
-                                        <input type="hidden" id="employeeId" value="">
-                                        <div class="form-group">
-                                            <label>Nombre</label>
-                                            <input type="text" class="form-control" id="employeeNombre" placeholder="Ingrese nombre del empleado" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Apellido</label>
-                                            <input type="text" class="form-control" id="employeeApellido" placeholder="Ingrese apellido" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Teléfono</label>
-                                            <input type="number" class="form-control" id="employeeTelefono" placeholder="Ingrese Teléfono" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Correo electrónico</label>
-                                            <input type="email" class="form-control" id="employeeEmail" placeholder="Ingrese correo" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>DNI</label>
-                                            <input type="number" class="form-control" id="employeeDNI" placeholder="Ingrese DNI" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Dirección</label>
-                                            <input type="text" class="form-control" id="employeeDireccion" placeholder="Ingrese Dirección" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Localidad</label>
-                                            <input type="text" class="form-control" id="employeeLocalidad" placeholder="Ingrese Localidad" required>
-                                        </div>
-                                        <div class="text-center mt-3">
-                                            <button type="button" id="submitEmployee" class="btn btn-success">Guardar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="search-container">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" class="form-control" placeholder="Buscar empleado...">
-                    </div>
-                    <table id="empleadosTable" class="table table-bordered table-hover table-striped mt-4">
+            <div class="col-16">
+                <div class="mb-3">
+                    <button class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#addProductModal">Añadir Empleado</button>
+                </div>
+                
+                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Buscar en la tabla...">
+                
+                <div class="table-responsive">
+                    {% for message in messages %}
+                        <p class="alert alert-success mt-3">{{ message }}</p>
+                    {% endfor %}
+                    <table class="table table-bordered table-hover table-striped mt-4">
                         <thead>
                             <tr>
-                                <th scope="col">ID Empleado</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellido</th>
-                                <th scope="col">Teléfono</th>
-                                <th scope="col">Correo Electrónico</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Correo electronico</th>
                                 <th scope="col">DNI</th>
                                 <th scope="col">Dirección</th>
                                 <th scope="col">Localidad</th>
@@ -110,7 +107,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Aquí se agregarán los empleados -->
+                            {% for i in empleado_lista %}
+                                <tr>
+                                    <td>{{ i.id_Empleado }}</td>
+                                    <td>{{ i.Nombre }}</td>
+                                    <td>{{ i.Apellido }}</td>
+                                    <td>{{ i.Telefono }}</td>
+                                    <td>{{ i.correo_electronico }}</td>
+                                    <td>{{ i.DNI }}</td>
+                                    <td>{{ i.Dirección }}</td>
+                                    <td>{{ i.Localidad }}</td>
+
+                                    <td>
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="{{ i.id_Empleado }}" data-nombre="{{ i.Nombre }}" data-apellido="{{ i.Apellido }}" data-telefono="{{ i.Telefono }}" data-correo_electronico="{{ i.correo_electronico }}"  data-dni="DNI"  data-dirección="Dirección" data-localidad="Localidad" >
+                                            <i class="fas fa-pencil-alt fa-2x"></i> 
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="{% url 'borrar_empl' i.id_Empleado %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-trash fa-2x"></i> 
+                                            </button>
+                                        </form>
+                                    </td>
+                                    
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -118,152 +142,143 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Agregar Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm" method="post" action="{% url 'Guardar_empleado' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" name="Nombre" placeholder="Ingrese nombre de empleado" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input type="text" class="form-control" name="Apellido" placeholder="Ingrese apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefono</label>
+                            <input type="number" step="0.01" class="form-control" name="Telefono" placeholder="Ingrese telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label>correo_electronico</label>
+                            <input type="text" class="form-control" name="correo_electronico" placeholder="Ingrese su correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label>DNI</label>
+                            <input type="number" step="0.01" class="form-control" name="DNI" placeholder="Ingrese DNI" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <input type="text" class="form-control" name="Dirección" placeholder="Ingrese dirección" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Localidad</label>
+                            <input type="text" class="form-control" name="Localidad" placeholder="Ingrese localidad" required>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Editar Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_Producto" id="editProductId" />
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" id="editProductNombre" name="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input type="text" class="form-control" id="editProductApellido" name="Apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefono</label>
+                            <input type="number" class="form-control" id="editProductTelefono" name="Telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo Electrónico</label>
+                            <input type="email" class="form-control" id="editProductcorreo_electronico" name="correo_electronico" required>
+                        </div>
+                        <div class="form-group">
+                            <label>DNI</label>
+                            <input type="number" class="form-control" id="editProductDNI" name="DNI" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <input type="text" class="form-control" id="editProductDirección" name="Dirección" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Localidad</label>
+                            <input type="text" class="form-control" id="editProductLocalidad" name="Localidad" required>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
-        let employeeIdCounter = 1; // Contador para ID de empleados
-        let editingEmployee = false;
-
-        // Cargar empleados desde localStorage al cargar la página
-        window.onload = function() {
-            const storedEmployees = JSON.parse(localStorage.getItem('employees'));
-            if (storedEmployees) {
-                storedEmployees.forEach(employee => {
-                    addEmployeeRow(employee);
-                    employeeIdCounter = Math.max(employeeIdCounter, employee.id + 1); // Actualiza el contador
-                });
-            }
-        };
-
-        document.getElementById('submitEmployee').addEventListener('click', function() {
-            const nombre = document.getElementById('employeeNombre').value;
-            const apellido = document.getElementById('employeeApellido').value;
-            const telefono = document.getElementById('employeeTelefono').value;
-            const email = document.getElementById('employeeEmail').value;
-            const dni = document.getElementById('employeeDNI').value;
-            const direccion = document.getElementById('employeeDireccion').value;
-            const localidad = document.getElementById('employeeLocalidad').value;
-            const id = document.getElementById('employeeId').value;
-
-            const employee = {
-                id: editingEmployee ? parseInt(id) : employeeIdCounter,
-                nombre,
-                apellido,
-                telefono,
-                email,
-                dni,
-                direccion,
-                localidad
-            };
-
-            if (editingEmployee) {
-                updateEmployeeRow(employee);
-                editingEmployee = false;
-            } else {
-                addEmployeeRow(employee);
-                employeeIdCounter++;
-            }
-
-            saveEmployeesToLocalStorage();
-
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addEmployeeModal'));
-            modal.hide();
-            document.getElementById('employeeForm').reset();
+        var editProductModal = document.getElementById('editProductModal');
+        editProductModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var Nombre = button.getAttribute('data-nombre');
+            var Apellido = button.getAttribute('data-apellido');
+            var Telefono = button.getAttribute('data-telefono');
+            var correo_electronico = button.getAttribute('data-correo_electronico');
+            var DNI = button.getAttribute('data-dni');
+            var Dirección = button.getAttribute('data-dirección');
+            var Localidad = button.getAttribute('data-localidad');
+            
+            document.getElementById('editProductId').value = id;
+            document.getElementById('editProductNombre').value = Nombre;
+            document.getElementById('editProductApellido').value = Apellido;
+            document.getElementById('editProductTelefono').value = Telefono;
+            document.getElementById('editProductcorreo_electronico').value = correo_electronico;
+            document.getElementById('editProductDNI').value = DNI;
+            document.getElementById('editProductDirección').value = Dirección;
+            document.getElementById('editProductLocalidad').value = Localidad;
         });
-
-        function addEmployeeRow(employee) {
-            const newRow = `
-                <tr data-id="${employee.id}">
-                    <td>${employee.id}</td>
-                    <td>${employee.nombre}</td>
-                    <td>${employee.apellido}</td>
-                    <td>${employee.telefono}</td>
-                    <td>${employee.email}</td>
-                    <td>${employee.dni}</td>
-                    <td>${employee.direccion}</td>
-                    <td>${employee.localidad}</td>
-                    <td><button class="btn btn-warning" onclick="editEmployee(${employee.id})">EDITAR</button></td>
-                    <td><button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">ELIMINAR</button></td>
-                </tr>
-            `;
-            document.querySelector('#empleadosTable tbody').insertAdjacentHTML('beforeend', newRow);
-        }
-
-        function updateEmployeeRow(employee) {
-            const row = document.querySelector(`tr[data-id='${employee.id}']`);
-            row.children[1].innerText = employee.nombre;
-            row.children[2].innerText = employee.apellido;
-            row.children[3].innerText = employee.telefono;
-            row.children[4].innerText = employee.email;
-            row.children[5].innerText = employee.dni;
-            row.children[6].innerText = employee.direccion;
-            row.children[7].innerText = employee.localidad;
-        }
-
-        function saveEmployeesToLocalStorage() {
-            const rows = document.querySelectorAll('#empleadosTable tbody tr');
-            const employees = Array.from(rows).map(row => {
-                return {
-                    id: parseInt(row.dataset.id),
-                    nombre: row.children[1].innerText,
-                    apellido: row.children[2].innerText,
-                    telefono: row.children[3].innerText,
-                    email: row.children[4].innerText,
-                    dni: row.children[5].innerText,
-                    direccion: row.children[6].innerText,
-                    localidad: row.children[7].innerText
-                };
+    
+        $(document).ready(function() {
+            var table = $('.table').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es_es.json'
+                },
+                dom: 't',
+                paging: false
             });
-            localStorage.setItem('employees', JSON.stringify(employees));
-        }
-
-        function editEmployee(id) {
-            const row = document.querySelector(`tr[data-id='${id}']`);
-            const cells = row.querySelectorAll('td');
-
-            document.getElementById('employeeNombre').value = cells[1].innerText;
-            document.getElementById('employeeApellido').value = cells[2].innerText;
-            document.getElementById('employeeTelefono').value = cells[3].innerText;
-            document.getElementById('employeeEmail').value = cells[4].innerText;
-            document.getElementById('employeeDNI').value = cells[5].innerText;
-            document.getElementById('employeeDireccion').value = cells[6].innerText;
-            document.getElementById('employeeLocalidad').value = cells[7].innerText;
-
-            document.getElementById('employeeId').value = id;
-            editingEmployee = true;
-
-            const modal = new bootstrap.Modal(document.getElementById('addEmployeeModal'));
-            modal.show();
-        }
-
-        function deleteEmployee(id) {
-            const row = document.querySelector(`tr[data-id='${id}']`);
-            row.remove();
-            saveEmployeesToLocalStorage(); // Guardar después de eliminar
-        }
-
-        document.getElementById('searchInput').addEventListener('keyup', function() {
-            const filter = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#empleadosTable tbody tr');
-
-            rows.forEach(row => {
-                const cells = row.getElementsByTagName('td');
-                let match = false;
-
-                for (let i = 1; i < cells.length - 2; i++) { // Recorre las celdas (ignora ID, Editar y Eliminar)
-                    if (cells[i].innerText.toLowerCase().includes(filter)) {
-                        match = true;
-                        break;
-                    }
-                }
-
-                row.style.display = match ? '' : 'none';
+    
+            $('#searchInput').on('keyup', function() {
+                table.search(this.value).draw();
             });
         });
     </script>
+    
 </body>
-</html>
-
-
-
+</html> 

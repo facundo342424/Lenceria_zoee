@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'CRUD_Empleados',
     'django_bootstrap5',
+    
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '12345',
         'HOST': 'localhost',
-        'PORT': '3306',  # Asegúrate de que este puerto sea el correcto para tu configuración
+        'PORT': '3306',  #
     }
 }
 
