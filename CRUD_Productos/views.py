@@ -57,8 +57,7 @@ def edicion(request, id_Producto):
 
     return redirect('lista')
 
-def productos(request):
-    return render(request, 'productos.html')
+
 
     
     

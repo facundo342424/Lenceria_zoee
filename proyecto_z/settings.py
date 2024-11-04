@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'CRUD_Caja',
     'django_bootstrap5',
     'CRUD_Productos',
-    'Login',
+    'CRUD_Proveedores',
+    'CRUD_Ventas',
+    'CRUD_tipo_ventas',
+    'CRUD_Clientes',
     
     
 
@@ -87,7 +89,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '3306',  # Asegúrate de que este puerto sea el correcto para tu configuración
+        'PORT': '3306',  
     }
 }
 

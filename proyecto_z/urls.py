@@ -24,9 +24,15 @@ from django.urls.conf import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    path('',include('CRUD_Clientes.urls')),
+
     path('',include('CRUD_Productos.urls')),
-    path('',include('Login.urls')),
+    path('',include('CRUD_Proveedores.urls')),
+ 
+    
+
     
     
-     # Rutas de la aplicación Caja
+     
 ]
