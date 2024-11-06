@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="row p-2">
+        <div class="col">
+          <div class="card text-center">
+              <div class="card-header">
+                  <h1 class="card-title">{{ title }} </h1>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+      {% include 'navbar.html' %}
+    </div>
+    <div class="row p-2 mb-5 bg-light">    
+       
+      <div class="col-8">
+        <div class="row">
+        {% for producto in productos %}
+        <div class="col-6">
+         <div class="card" style="width: 18rem;">
+            <img src="{% static producto.surl %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ producto.snombreproducto }}</h5>
+              <p class="card-text">{{ producto.sdescripcion }}</p>
+              <p class="card-footer">{{ producto.dprecio }}</p>
+              <a href="{% url 'Add' producto.iidproducto %}" class="btn btn-primary">Agregar Carrito</a>
+            </div>
+          </div>
+        </div>
+               
+        {% endfor %}
+    </div>
+      </div>
+      <div class="col-4">
+
+         {% include 'Carrito.html' %} 
+
+
+      </div>
+    </div>   
+
+
+{% endblock content %}

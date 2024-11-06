@@ -20,13 +20,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 
- # Importa la vista que quieres mostrar en la raíz
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+    path('',include('CRUD_Carrito.urls')),
     path('',include('CRUD_Clientes.urls')),
-
     path('',include('CRUD_Productos.urls')),
     path('',include('CRUD_Proveedores.urls')),
  

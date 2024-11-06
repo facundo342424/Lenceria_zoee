@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+
+
+
+<style type="text/css">
+    @page {
+        size: letter;
+        margin: 1cm; /* Ajusta los márgenes aquí */
+    }
+
+    body {
+        margin: 0; /* Ajusta el margen del cuerpo si es necesario */
+    }
+</style>
+
+{% endblock style%}
+
+{% block content %}
+
+
+
+<h1>Comprobante de Venta</h1>
+
+
+
+<p>Número de Pedido: {{ pedido.inropedido }}</p>
+<p>Fecha del Pedido: {{ pedido.dfechapedido }}</p>
+<p>Total del Pedido: {{ pedido.itotal }}</p> 
+
+
+<h2>Detalle del Pedido</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Producto</th>
+            <th>Nombre Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for detalle in detalle_pedido %}
+            <tr>
+                <td></td>
+                <td>{{ detalle.iidproducto }}</td>
+                <td>{{ detalle.producto.snombreproducto }}</td>
+                <td>{{ detalle.icantidad }}</td>
+                <td>{{ detalle.precio_unitario }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+<!-- Puedes agregar más información aquí, como datos del cliente, empleado, etc. -->
+
+    <!-- Puedes agregar más información aquí, como datos del cliente, empleado, etc. -->
+{% endblock content %}
