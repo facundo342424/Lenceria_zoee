@@ -77,16 +77,17 @@ class AuthUserUserPermissions(models.Model):
 
 class caja(models.Model):
     id_caja = models.BigAutoField(db_column='id_caja', primary_key=True)
-    id_Cliente = models.ForeignKey('empleados', models.DO_NOTHING, db_column='id_Empleado')  # Field name made lowercase.
+    id_Empleado = models.ForeignKey('empleados', models.DO_NOTHING, db_column='id_Empleado')  # Field name made lowercase.
     id_Factura = models.ForeignKey('facturas', models.DO_NOTHING, db_column='id_Factura')   # Field name made lowercase.
     Fecha_apertura_caja = models.DateTimeField(db_column='Fecha_apertura_caja',default=timezone.now, blank=False, null=False)  # Field name made lowercase.
     Fecha_cierre_caja = models.DateTimeField(db_column='Fecha_cierre_caja', blank=True, null=True)  # Field name made lowercase.
     Monto_inicial_Caja = models.DecimalField(db_column='Monto_inicial_Caja', max_digits=8, decimal_places=2)  # Field name made lowercase.
     Total_ingresos_caja = models.DecimalField(db_column='Total_ingresos_caja', max_digits=8, decimal_places=2, null=True)
     Total_egresos_caja = models.DecimalField(db_column='Total_egresos_caja', max_digits=8, decimal_places=2, null=True)
+    numero = models.DecimalField(db_column='numero', max_digits=8, decimal_places=2) 
     created_at = models.DateTimeField(default=timezone.now,blank=True, null=True)
     updated_at = models.DateTimeField(default=timezone.now,blank=True, null=True)
-    sobservaciones = models.CharField(db_column='sObservaciones', max_length=2000, default='')
+   
 
     class Meta:
         managed = True
@@ -100,17 +101,17 @@ class Clientes(models.Model):
     Nombre = models.CharField(max_length=100)
     Apellido = models.CharField(max_length=100)
     Domicilio = models.CharField(max_length=100)
-    Telefono = models.DecimalField(max_digits=10, decimal_places=2)
+    Telefono = models.CharField(max_length=15)  # Changed to CharField for phone number
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    created_at = models.DateTimeField(blank=True, null=True)
-    updated_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'clientes'
+        db_table = 'Clientes'
 
 
-class User(models.Model):
+class users(models.Model):
     id_Usuario = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100)
     Contraseña = models.DecimalField(max_digits=10, decimal_places=2)
@@ -122,7 +123,7 @@ class User(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'User'
+        db_table = 'users'
             
 
 
@@ -252,9 +253,11 @@ class Stock(models.Model):
     id_stock = models.BigAutoField(db_column='id_stock', primary_key=True)
     id_Producto = models.ForeignKey(Productos, models.DO_NOTHING, db_column='id_Producto')  # Field name made lowercase.
     disponible_stock = models.DecimalField(max_digits=10, decimal_places=2)
+    minimo = models.DecimalField(max_digits=10, decimal_places=2)
+    maximo = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)
-    list_display = ['id_Producto', 'disponible_stock']
+    list_display = ['id_Producto', 'disponible_stock','minimo','maximo']
     
     class Meta:
         managed = False

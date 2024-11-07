@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row mb-5">
+    {% include 'navbar.html' %}
+</div>
+<div class="row p-2">
+    <div class="col-12">
+        <div class="card text-center">
+            <div class="card-header">
+                <h4 class="card-title">{{ title }} </h4>
+            </div>
+        </div>
+      </div> 
+    <div class="col-12">
+         <!-- mostrar form de caja para operar -->
+         <div class="row m-5 bg-light"> 
+      
+            <input type="hidden" id="hdnEstadoCajas" value="{{ estado_caja }}" />
+        
+            <table id="tableCajas" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>NroCaja</th>
+                        <th>Monto Apertura</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>                
+            </table>                    
+        </div>
+  </div>
+  
+</div>
+
+{% endblock content %}
+{% block javascript %}
+<script type="text/javascript" src="{% static 'js/validarCaja.js' %}"></script>
+<script>
+    // $("#tableCajas").DataTable({
+    //    searching : true
+    // })
+
+    var json = '{{ test_data|safe }}';
+    var jsonData = JSON.parse(json);
+  
+    $('#tableCajas').DataTable({
+        language: {
+             url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            },
+            {
+            extend: 'excelHtml5',
+            autoFilter: true,
+            sheetName: 'Exported data'
+           } 
+        ],
+        data: jsonData.cajas,       
+        columns: [
+            { data: "inrocaja" },
+            { data: "fmontoapertura" },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    // Agrega un botón a cada fila y pasa el ID del registro
+                    // if (row.dfechacierre != null)
+                    // {
+                       return '<button class="btn btn-info" title="cerrar caja" onclick="passID(' + row.iidcaja + ')"><i class="bi bi-file-x"></i></button>';
+                    //}
+                }
+            }
+        ]
+    });
+
+    function passID(id) {
+      // Esta función recibe el ID del registro y puedes hacer lo que necesites con él
+       bootbox.alert('ID del registro: ' + id);
+    }
+    var estadoCaja = "{{ estado_caja }}";
+   
+   
+
+   </script>

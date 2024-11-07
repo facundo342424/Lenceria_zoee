@@ -26,18 +26,18 @@
 
 
 
-<p>Número de Pedido: {{ pedido.inropedido }}</p>
-<p>Fecha del Pedido: {{ pedido.dfechapedido }}</p>
-<p>Total del Pedido: {{ pedido.itotal }}</p> 
+<p>Número de venta: {{ venta.id_Venta }}</p>
+<p>Fecha del venta: {{ venta.fecha_venta }}</p>
+<p>Total del venta: {{ venta.total_venta }}</p> 
 
 
-<h2>Detalle del Pedido</h2>
+<h2>Detalle de venta</h2>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>ID Producto</th>
-            <th>Nombre Producto</th>
+            <th>Nombre </th>
             <th>Cantidad</th>
             <th>Precio Unitario</th>
         </tr>
@@ -46,7 +46,7 @@
         {% for detalle in detalle_pedido %}
             <tr>
                 <td></td>
-                <td>{{ detalle.iidproducto }}</td>
+                <td>{{ detalle.id_Producto }}</td>
                 <td>{{ detalle.producto.snombreproducto }}</td>
                 <td>{{ detalle.icantidad }}</td>
                 <td>{{ detalle.precio_unitario }}</td>

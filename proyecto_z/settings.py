@@ -10,41 +10,51 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import os
+import os, inspect
 from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^u4vxelam1y_3&bz+t^xa7jy-6r=lw_66o!_z)f=4t94x8j57-'
+SECRET_KEY = 'django-insecure-y&&gn^cr4e($^c100m%xpx%dh8=@_8^b9h2v79t0^8)m1gufy('
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 # Application definition
+
 INSTALLED_APPS = [
-    "crispy_forms",
-    "crispy_bootstrap5",
+
+    'crispy_forms',
+    'crispy_bootstrap5', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'CRUD_Caja',
     'django_bootstrap5',
     'CRUD_Productos',
     'CRUD_Proveedores',
-    'CRUD_Clientes',
     'CRUD_Carrito',
+    'CRUD_Ventas',
+    'loguinApp',
+    'CRUD_Users',
+    
+    
+
 ]
 
 MIDDLEWARE = [
@@ -59,14 +69,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'proyecto_z.urls'
 
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,6 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'CRUD_Carrito.context_processor.total_carrito',
             ],
         },
     },
@@ -82,6 +93,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'proyecto_z.wsgi.application'
 
 
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -89,10 +103,16 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '3306',  # Asegúrate de que este puerto sea el correcto para tu configuración
     }
 }
 
+
+
+
+
+# Password validation
+# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -109,23 +129,34 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# Internationalization
+# https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+LANGUAGE_CODE = 'es'
+
+TIME_ZONE = 'America/Buenos_Aires'
 
 USE_I18N = True
 
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_URL = '/static/' # La URL raíz para servir archivos estáticos
 
+STATICFILES_DIRS = [
+    Path(BASE_DIR) / "static",  # Directorio de archivos estáticos del proyecto principal
+]
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL='Home'
+LOGOUT_REDIRECT_URL='Home'
+LOGIN_URL='login'
 
-
-LOGIN_REDIRECT_URL = '/Cierre'
-
-
+#para permitir la carga de modal en iframe
+X_FRAME_OPTIONS = 'SAMEORIGIN'

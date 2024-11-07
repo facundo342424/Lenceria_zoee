@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DataTable con Django y Bootbox</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <table id="item-table" class="display">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se cargarán aquí mediante Ajax -->
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#item-table').DataTable({
+                ajax: {
+                    url: "{% url 'api_items' %}",  // URL de la vista de API para cargar datos
+                    dataSrc: ''
+                },
+                columns: [
+                    { data: 'nombre' },
+                    { data: 'descripcion' }
+                ]
+            });
+
+            $('#item-table tbody').on('click', 'tr', function () {
+                var data = $('#item-table').DataTable().row(this).data();
+                bootbox.alert("Descripción: " + data.descripcion);
+            });
+        });
+    </script>
+</body>
+</html>
