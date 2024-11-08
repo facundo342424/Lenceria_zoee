@@ -16,3 +16,6 @@ class Usuario(models.Model):
         ('admin', 'Administrador'),
     ]
     roles = models.CharField(max_length=7, choices=OPCIONES_ROL, default='usuario')
+
+
+    

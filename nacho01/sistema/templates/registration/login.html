@@ -4,7 +4,8 @@
 {% load crispy_forms_tags %}
 
 <h3>Login</h3>
-<head><style>
+<head>
+  <style>
   body, html {
       height: 100%;
       margin: 0;
@@ -46,7 +47,7 @@
           <h5 class="card-title"> INGRESE SUS CREDENCIALES</h5>
           {{ form | crispy }}
           <div>
-            <p><a href="{% url 'password_change' %}">Olvide mi Contraseña</a></p>
+            <p><a href="{% url 'password_reset' %}">Olvide mi Contraseña</a></p>
             <form action="{% url 'logout' %}" method="post">
           <button class="btn btn-sm btn-primary float-end" type='sumbmit'>INICIAR SESION</button>    
         </div>

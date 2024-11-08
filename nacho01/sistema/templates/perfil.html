@@ -88,13 +88,17 @@
         <img src="{% static 'imagenes/R.png' %}" alt="Avatar" class="image" style="width: 40%">
           <div class="middle">
             <div class="text">Ver</div>
-          </div>
+          </div>        
         </div>
+
+        <div><p><a href="{% url 'password_change' %}">Cambiar contraseña</a></p></div>
           
 </body>
         <h4> Nombre de usuario:   {{ user.username | upper }} </h4>
         <h4> Nombre :   {{ user.first_name | upper }} </h4>
         <h4> Email :    {{ user.email | upper }} </h4>
+        
+        
 
         
 {% endif %}

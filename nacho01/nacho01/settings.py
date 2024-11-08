@@ -137,7 +137,10 @@ LOGOUT_REDIRECT_URL = 'inicio'
 
 # directorio de imagenes
 
-STATICFILES_DIRS = [STATIC_DIR,]
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'sistema/static/',  # Esto apunta a la carpeta 'static' en la raíz de tu proyecto
+]
 
 
 ## restablecer contrase;a
