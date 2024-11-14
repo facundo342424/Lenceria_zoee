@@ -9,3 +9,7 @@ urlpatterns = [
     path('limpiar_carrito/', limpiar_carrito, name='limpiar_carrito'),
     path('confirmar_pedido/', confirmar_pedido, name='confirmar_pedido'),
 ]
+
+
+
+

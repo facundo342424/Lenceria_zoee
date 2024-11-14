@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row p-2">
+    <div class="col">
+      <div class="card text-center">
+          <div class="card-header">
+              <h1 class="card-title">{{ title }} </h1>
+          </div>
+      </div>
+    </div>
+</div>
+<div class="row mb-2">
+    {% include 'navbar.html' %}
+</div>
+
+   
+<div class="container mt-5">
+    <h1>Listado de Clientes</h1>
+    <button id="addClienteBtn" class="btn btn-primary mb-3">Agregar Cliente</button>
+    <table id="tblClientes" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se llenarán dinámicamente con DataTables -->
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
+{% block javascript %}
+<script type="text/javascript" src="{% static 'js/clientes.js' %}"></script>
+<script>
+    $(document).ready(function() {
+            $('#tblClientes').DataTable({
+                "ajax": {
+                    "url": "{% url 'api_clientes' %}",
+                    "dataSrc": "data"
+                },
+                "columns": [
+                    { "data": "id_Cliente" },
+                    { "data": "Nombre" },
+                    { "data": "Apellido" },
+                    { "data": "DNI" }//,
+
+                  
+
+                ]
+            });
+        });
+   
+
+        $('#addClienteBtn').click(function() {
+                openFormModal("{% url 'cliente_add' %}");
+        });
+
+        $('#clientesTable tbody').on('click', '.editClienteBtn', function() {
+                var url = $(this).data('url');
+                openFormModal(url);
+            });
+
+        $('#clientesTable tbody').on('click', '.deleteClienteBtn', function() {
+            var url = $(this).data('url');
+            openDeleteModal(url);
+        });
+   </script>
+{% endblock javascript %}

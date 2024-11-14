@@ -230,9 +230,7 @@ class Productos(models.Model):
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
-    def __str__(self):
-        return self.Nombre
-
+   
     class Meta:
         managed = False
         db_table = 'Productos'
@@ -247,7 +245,7 @@ class Ventas(models.Model):
     total_venta = models.DecimalField(max_digits=10, decimal_places=2)
     class Meta:
         managed = False
-        db_table = 'Ventas'
+        db_table = 'ventas'
 
 class Stock(models.Model):
     id_stock = models.BigAutoField(db_column='id_stock', primary_key=True)
@@ -265,7 +263,7 @@ class Stock(models.Model):
 
 
 class DetalleVenta(models.Model):
-    id_detalle_venta = models.BigAutoField(db_column='iIdTipoComprobante', primary_key=True)  # Field name made lowercase.
+    id_detalle_venta = models.BigAutoField(db_column='id_detalle_venta', primary_key=True)  # Field name made lowercase.
     id_Producto = models.ForeignKey(Productos, models.DO_NOTHING, db_column='id_Producto')
     id_Venta = models.ForeignKey(Ventas, models.DO_NOTHING, db_column='id_Venta')
     cantidad_de_productos_detalle_de_ventas= models.DecimalField(max_digits=10, decimal_places=2)
@@ -276,7 +274,7 @@ class DetalleVenta(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'DetalleVenta'
+        db_table = 'detalleVenta'
 
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from CRUD_Carrito.models import empleados, Productos, Stock
+from CRUD_Carrito.models import empleados, Productos,Stock
 
 @admin.register(empleados)
 class EmpleadosAdmin(admin.ModelAdmin):
@@ -19,6 +19,7 @@ class EmpleadosAdmin(admin.ModelAdmin):
     @admin.display(description="Documento")
     def documento(self, obj):
         return obj.DNI
+    
 
     def usuario(self, obj):
         return obj.user.username

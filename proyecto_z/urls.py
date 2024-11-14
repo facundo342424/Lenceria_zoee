@@ -25,14 +25,21 @@ from loguinApp.views import CustomLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('admin/login/', CustomLoginView.as_view(), name='login'), 
-    path('Tienda/', include('CRUD_Carrito.urls')),
-    path('cajas/', include('CRUD_Caja.urls')),
-    path('lista/',include('CRUD_Productos.urls')),
-    path('',include('loguinApp.urls')),
-    path('',include('CRUD_Ventas.urls')),
+    path('',include('ResgistrodeVentas.urls')),
+
+
+ 
+
     path('',include('CRUD_Productos.urls')),
+    path('',include('CRUD_Clientes.urls')),
+    path('',include('CRUD_Carrito.urls')),
+  
     path('',include('CRUD_Proveedores.urls')),
+  
+    path('',include('loguinApp.urls')),
+    
+    
+   
  
     
 

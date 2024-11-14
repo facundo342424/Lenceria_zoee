@@ -44,14 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'CRUD_Caja',
     'django_bootstrap5',
     'CRUD_Productos',
     'CRUD_Proveedores',
     'CRUD_Carrito',
-    'CRUD_Ventas',
     'loguinApp',
-    'CRUD_Users',
+    'CRUD_Clientes',
+    'ResgistrodeVentas',
+    
     
     
 
@@ -103,7 +103,10 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '3306',  # Asegúrate de que este puerto sea el correcto para tu configuración
+        'PORT': '3306',
+        'OPTIONS': {
+        'sql_mode': 'STRICT_TRANS_TABLES',  # Habilitar modo estricto
+        },  # Asegúrate de que este puerto sea el correcto para tu configuración
     }
 }
 
@@ -160,3 +163,4 @@ LOGIN_URL='login'
 
 #para permitir la carga de modal en iframe
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
