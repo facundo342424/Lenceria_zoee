@@ -57,13 +57,13 @@ def edicion_producto(request, id_Producto):
 
 
 def control_stock(request):
-    stock_lista = Stock.objects.all()
+    stock_lista = Stock.objects.all()  # Obtener todos los registros de stock
     contexto = {
         'stock_lista': stock_lista
     }
     return render(request, 'control_stock.html', contexto)
 
-
+# Vista para agregar un nuevo producto al stock
 def Añadir_stock(request):
     if request.method == 'POST':
         Descripción = request.POST['Descripción']
@@ -72,26 +72,39 @@ def Añadir_stock(request):
         Color = request.POST['Color']
         Precio = request.POST['Precio']
         Cantidad = request.POST['Cantidad']
-        
-        if Stock.objects.filter(Descripción=Descripción, Talle=Talle, Genero=Genero, Color=Color,Precio=Precio,Cantidad=Cantidad).exists():
-            messages.error(request, 'Este producto ya existe.')
+
+        # Verificar si el producto ya existe en el stock
+        if Stock.objects.filter(Descripción=Descripción, Talle=Talle, Genero=Genero, Color=Color).exists():
+            messages.warning(request, 'Este producto ya existe en el inventario.')
         else:
-            stock = Stock(Descripción=Descripción, Talle=Talle, Genero=Genero, Color=Color, Precio=Precio,Cantidad=Cantidad)
+            # Si no existe, crear un nuevo producto y guardarlo
+            stock = Stock(Descripción=Descripción, Talle=Talle, Genero=Genero, Color=Color, Precio=Precio, Cantidad=Cantidad)
             stock.save()
             messages.success(request, '¡Stock guardado con éxito!')
-            return redirect('lista')
-    
-    return render(request, 'control_stock.html')
+
+        # Redirigir para evitar el problema de reenvío de formulario al actualizar la página
+        return redirect('control_stock')
+
+    # Si el método no es POST, simplemente mostramos la lista de stock
+    stock_lista = Stock.objects.all()
+    contexto = {
+        'stock_lista': stock_lista
+    }
+    return render(request, 'control_stock.html', contexto)
 
 def eliminar(request, id_stock):
     stock = Stock.objects.get(id_stock=id_stock)
     stock.delete()
-    messages.info(request, 'Stock eliminado')
-    return redirect('')
-
+    messages.success(request, 'Producto eliminado con éxito.')
+    return redirect('control_stock')
 
 def editar(request, id_stock):
-    editar_stock = Stock.objects.get(id_stock=id_stock)
+    try:
+        editar_stock = Stock.objects.get(id_stock=id_stock)
+    except Stock.DoesNotExist:
+        messages.error(request, 'El stock que estás buscando no existe.')
+        return redirect('control_stock')  # O la vista que corresponda
+    
     stock_lista = Stock.objects.all()
     contexto = {
         'editar_stock': editar_stock,
@@ -101,9 +114,14 @@ def editar(request, id_stock):
 
 
 def edicion(request, id_stock):
-    stock = Stock.objects.get(id_stock=id_stock)
-
+    try:
+        stock = Stock.objects.get(id_stock=id_stock)
+    except Stock.DoesNotExist:
+        messages.error(request, 'El stock que estás buscando no existe.')
+        return redirect('control_stock')  # O la vista que corresponda
+    
     if request.method == 'POST':
+        # Actualización de los campos del stock
         stock.Descripción = request.POST['Descripción']
         stock.Talle = request.POST['Talle']
         stock.Genero = request.POST['Genero']
@@ -111,15 +129,17 @@ def edicion(request, id_stock):
         stock.Precio = request.POST['Precio']
         stock.Cantidad = request.POST['Cantidad']
         stock.save()
-        messages.success(request, '¡Stock actualizado con éxito!')
-        return redirect('control_stock')
-    return redirect('control_stock')
+
+        messages.success(request, '¡Producto actualizado con éxito!')
+        return redirect('control_stock')  # Redirigir a la lista o donde sea necesario
+
+    contexto = {
+        'stock': stock
+    }
+    return render(request, 'control_stock.html', contexto)
 
 
-      
 
 
-
-    
-
+ 
 
