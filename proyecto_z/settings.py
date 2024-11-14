@@ -47,10 +47,8 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'CRUD_Productos',
     'CRUD_Proveedores',
-    'CRUD_Carrito',
-    'loguinApp',
-    'CRUD_Clientes',
-    'ResgistrodeVentas',
+    'CRUD_Caja',
+
     
     
     
@@ -84,7 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'CRUD_Carrito.context_processor.total_carrito',
+                
             ],
         },
     },

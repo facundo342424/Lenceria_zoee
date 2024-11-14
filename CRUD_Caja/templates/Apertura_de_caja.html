@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apertura de Caja</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        .table-container table {
+            width: 70%;
+            border-collapse: collapse;
+        }
+
+        .table-container th, .table-container td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table-container th {
+            background-color: #f4f4f4;
+        }
+
+        .table-container th:nth-child(1),
+        .table-container td:nth-child(1) {
+            width: 20%;
+        }
+
+        .table-container th:nth-child(2),
+        .table-container td:nth-child(2) {
+            width: 20%;
+        }
+
+        .table-container th:nth-child(3),
+        .table-container td:nth-child(3) {
+            width: 20%;
+        }
+
+        .table-container th:nth-child(4),
+        .table-container td:nth-child(4) {
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <h1>Apertura de Caja</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Caja</th>
+                    <th>ID Empleado</th>
+                    <th>ID Factura</th>
+                    <th>Fecha Apertura</th>
+                    <th>Monto Inicial</th>
+                    <th>Total Ingresos</th>
+                    <th>Total Egresos</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for caja in cajas %}
+                <tr>
+                    <td>{{ caja.id_caja }}</td>
+                    <td>{{ caja.id_empleado }}</td>
+                    <td>{{ caja.id_factura }}</td>
+                    <td>{{ caja.fecha_apertura_caja }}</td>
+                    <td>{{ caja.monto_inicial_caja }}</td>
+                    <td>{{ caja.total_ingresos_caja }}</td>
+                    <td>{{ caja.total_egresos_caja }}</td>
+                    <td>{{ caja.total_caja }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-container">
+        <h2>Añadir Nueva Caja</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Agregar Caja</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+

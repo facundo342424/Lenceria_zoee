@@ -19,31 +19,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from loguinApp.views import CustomLoginView
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('ResgistrodeVentas.urls')),
 
 
  
 
     path('',include('CRUD_Productos.urls')),
-    path('',include('CRUD_Clientes.urls')),
-    path('',include('CRUD_Carrito.urls')),
+    
+    
   
     path('',include('CRUD_Proveedores.urls')),
   
-    path('',include('loguinApp.urls')),
-    
-    
-   
- 
-    
-
-    
-    
+      
      
 ]
