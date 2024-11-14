@@ -13,17 +13,20 @@
 
     <style>
         body {
-            background-color: #f8d7dab0; 
+            background-color: #f8d7dab0;
+            margin-top: 60px; 
+            margin-bottom: 60px; 
         }
         table {
             background-color: white;
         }
-        
+
         button:hover {
-            background-color:#34403f00;
+            background-color: #34403f00;
         }
+
         .modal-content {
-            background-color: #f1f1f1;  
+            background-color: #f1f1f1;
             border-radius: 10px;
             box-shadow: rgba(188, 143, 143, 0.555);
         }
@@ -52,24 +55,73 @@
             border-color: #343a40da;
         }
         .fila-edit {
-            background-color: rgba(0, 0, 0, 0.336); 
+            background-color: rgba(0, 0, 0, 0.336);
         }
         thead tr {
-            background-color: #343a40; 
-            color: rgb(255, 255, 255); 
+            background-color: #343a40;
+            color: rgb(255, 255, 255);
         }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            padding: 10px 0;
+            z-index: 9999;
+            left: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            height: 60px; 
+            text-align: center;
+            z-index: 9999;
+        }
+
+        .main-content {
+            padding-top: 80px; 
+           
+            padding-bottom: 80px;
+        }
+        footer {
+         position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    height: 60px; 
+    text-align: center;
+    z-index: 9999;
+    line-height: 60px; 
+
+    }
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
     </style>
 </head>
 <body>
-    <h1 class="text-center mt-4">Lista de Productos</h1>
-    <div class="container mt-4">
-        <div class="row">
+    <header>
+        <h1 class="text-center">Lista de Productos</h1>
+    </header>
 
+    <div class="container main-content">
+        <div class="row">
             <div class="col-12">
                 <div class="mb-3">
-                    <button class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">Agregar Producto</button>
+                    <button class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">Agregar Producto +</button>
+                    <a href="{% url 'control_stock' %}" class="btn btn-primary mb-2">Ver Stock</a>
+
                 </div>
-                
                 
                 <div class="table-responsive">
                     {% for message in messages %}
@@ -83,6 +135,7 @@
                                 <th scope="col">Marca</th>
                                 <th scope="col">Precio</th>
                                 <th scope="col">Color</th>
+                                <th scope="col">Cantidad</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -95,8 +148,10 @@
                                     <td>{{ i.Marca }}</td>
                                     <td>{{ i.Precio }}</td>
                                     <td>{{ i.Color }}</td>
+                                    <td>{{ i.Cantidad }}</td>
+
                                     <td>
-                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="{{ i.id_Producto }}" data-nombre="{{ i.Nombre }}" data-marca="{{ i.Marca }}" data-precio="{{ i.Precio }}" data-color="{{ i.Color }}">
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="{{ i.id_Producto }}" data-nombre="{{ i.Nombre }}" data-marca="{{ i.Marca }}" data-precio="{{ i.Precio }}" data-color="{{ i.Color }}"  data-cantidad="{{ i.Cantidad }}">
                                             <i class="fas fa-pencil-alt fa-2x"></i> 
                                         </button>
                                     </td>
@@ -113,15 +168,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <div>
-                        <span class="text-muted">Mostrando {{ producto_lista|length }} productos</span>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary">Anterior</button>
-                        <button class="btn btn-secondary">Siguiente</button>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -131,6 +178,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="agregarProductoModalLabel">Agregar Producto</h5>
+
+
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -151,6 +201,10 @@
                         <div class="form-group">
                             <label>Color</label>
                             <input type="text" class="form-control" name="Color" placeholder="Ingrese color" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad</label>
+                            <input type="number" step="0.01" class="form-control" name="Cantidad" placeholder="Ingrese cantidad" required>
                         </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-success">Guardar</button>
@@ -188,6 +242,10 @@
                             <label>Color</label>
                             <input type="text" class="form-control" id="editarProductoColor" name="Color" required>
                         </div>
+                        <div class="form-group">
+                            <label>Cantidad</label>
+                            <input type="number" class="form-control" id="editarProductoCantidad" name="Cantidad" required>
+                        </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-success">Actualizar</button>
                         </div>
@@ -197,51 +255,37 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <footer>
+        
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            // Inicializar DataTable
-            const table = $('.table').DataTable({
-                language: {
-                    "sSearch": "Buscar:",
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                    "infoEmpty": "No hay registros disponibles",
-                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                    "paginate": {
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                }
-            });
+            $('.table').DataTable();
+        });
 
-            // Filtro de búsqueda
-            $('#buscadorInput').on('keyup', function() {
-                table.search(this.value).draw();
-            });
-
-            // Configuración del modal de edición
-            $('#editarProductoModal').on('show.bs.modal', function(event) {
-                const button = $(event.relatedTarget); 
-                const id = button.data('id'); 
-                const nombre = button.data('nombre');
-                const marca = button.data('marca');
-                const precio = button.data('precio');
-                const color = button.data('color');
-
-                const modal = $(this);
-                modal.find('#editarProductoId').val(id);
-                modal.find('#editarProductoNombre').val(nombre);
-                modal.find('#editarProductoMarca').val(marca);
-                modal.find('#editarProductoPrecio').val(precio);
-                modal.find('#editarProductoColor').val(color);
-            });
+        $('#editarProductoModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); 
+            var id = button.data('id');
+            var nombre = button.data('nombre');
+            var marca = button.data('marca');
+            var precio = button.data('precio');
+            var color = button.data('color');
+            var cantidad = button.data('cantidad');
+            
+            var modal = $(this);
+            modal.find('#editarProductoId').val(id);
+            modal.find('#editarProductoNombre').val(nombre);
+            modal.find('#editarProductoMarca').val(marca);
+            modal.find('#editarProductoPrecio').val(precio);
+            modal.find('#editarProductoColor').val(color);
+            modal.find('#editarProductoCantidad').val(cantidad);
         });
     </script>
 </body>
 </html>
-
