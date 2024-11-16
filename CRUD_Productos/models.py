@@ -7,6 +7,7 @@ class Productos(models.Model):
     Precio = models.DecimalField(max_digits=10, decimal_places=2)
     Color = models.CharField(max_length=100)
     Cantidad = models.DecimalField(max_digits=100, decimal_places=2)
+    
 
 
     class Meta:
@@ -22,7 +23,7 @@ class Stock(models.Model):
     Color = models.CharField(max_length=100)
     Precio = models.DecimalField(max_digits=30, decimal_places=2)
     Cantidad = models.DecimalField(max_digits=20, decimal_places=2)
-
+ 
     class Meta:
         managed = False
         db_table = 'stock'

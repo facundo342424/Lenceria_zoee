@@ -6,19 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stock</title>
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-    <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" />
-    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
     <style>
         body {
             background-color: gray;
             color: #ffffff;
-            padding-top: 50px;
-            padding-bottom: 90px;
+            padding-top: 120px;
+            padding-bottom:120px;
         }
         table {
             background-color: #ffffff;
@@ -28,6 +25,20 @@
         table th, table td {
             padding: 10px;
             text-align: center;
+        }
+        button:hover {
+            background-color: #34403f00;
+        }
+        .modal-content {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            box-shadow: rgba(188, 143, 143, 0.555);
+        }
+        .modal-header {
+            background-color: #343a40;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
         table thead {
             background-color: #212529;
@@ -43,7 +54,7 @@
             background-color: #212529aa;
             color: #ffffff;
             text-align: center;
-            padding: 20px 0;
+            padding: 60px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -53,15 +64,43 @@
             background-color: #212529;
             color: #ffffff;
             text-align: center;
-            padding: 20px 0;
+            padding: 60px 0;
             position: fixed;
             top: 0;
             width: 100%;
             height: 70px;
         }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #212529;
+            color: white;
+            height: 60px;
+            text-align: center;
+            z-index: 9999;
+            line-height: 60px;
+        }
         .footer-up h1 {
             margin: 0;
             font-size: 24px;
+        }
+        .stock-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .stock-warning-red {
+            color: #dc3545;
+        }
+        
+        .stock-warning-orange {
+            color: #fd7e14;
+        }
+        
+        .stock-warning-green {
+            color: #198754;
         }
     </style>
 </head>
@@ -105,7 +144,10 @@
                                     <td>{{ i.Genero }}</td>
                                     <td>{{ i.Color }}</td>
                                     <td>{{ i.Precio }}</td>
-                                    <td>{{ i.Cantidad }}</td>
+                                    <td class="d-flex justify-content-center align-items-center">
+                                        {{ i.Cantidad }}
+                                        <span class="stock-indicator ms-2"></span>
+                                    </td>
                                     <td>
                                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarStockModal" 
                                             data-id="{{ i.id_stock }}" 
@@ -135,7 +177,6 @@
         </div>
     </div>
 
-    <!-- Modal Añadir Stock -->
     <div class="modal fade" id="agregarStockModal" tabindex="-1" aria-labelledby="agregarStockModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -171,55 +212,135 @@
                             <label>Cantidad</label>
                             <input type="number" class="form-control" name="Cantidad" placeholder="Ingrese Cantidad" required>
                         </div>
-                        <button type="submit" class="btn btn-success mt-3">Añadir</button>
+                        <button type="submit" class="btn btn-success mt-3">Añadir stock</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="footer"></div>
+    <div class="modal fade" id="editarStockModal" tabindex="-1" aria-labelledby="editarStockModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarStockModalLabel">Editar stock</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="editarStockForm" action="{% url 'edicion' 0 %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <input type="text" class="form-control" id="edit_descripción" name="Descripción" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Talle</label>
+                            <input type="text" class="form-control" id="edit_talle" name="Talle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Genero</label>
+                            <input type="text" class="form-control" id="edit_genero" name="Genero" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Color</label>
+                            <input type="text" class="form-control" id="edit_color" name="Color" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" step="0.01" class="form-control" id="edit_precio" name="Precio" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad</label>
+                            <input type="number" step="0.01" class="form-control" id="edit_cantidad" name="Cantidad" required>
+                        </div>
+                       
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+    
+    </footer>
 
-    <!-- Bootstrap JS, Popper.js, jQuery, DataTables JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#stockTable').DataTable({
-                "paging": true,  // Habilitar paginación
-                "searching": true,  // Habilitar búsqueda
-                "ordering": true,  // Habilitar ordenación
-                "info": true,  // Información de la tabla
-                "language": {
-                    "sSearch": "Buscar: ",  // Etiqueta del buscador
-                    "lengthMenu": "Mostrar _MENU_ registros por página",  // Paginación
-                    "zeroRecords": "No se encontraron registros",  // Mensaje cuando no hay datos
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",  // Información de la tabla
-                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",  // Cuando la tabla está vacía
-                    "infoFiltered": "(filtrado de _MAX_ registros totales)",  // Filtrado
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay datos disponibles en la tabla",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                    "infoFiltered": "(filtrado de _MAX_ registros en total)",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "search": "Buscar:",
+                    "zeroRecords": "No se han encontrado registros coincidentes",
                     "paginate": {
-                        "next": "Siguiente",  // Botón de siguiente
-                        "previous": "Anterior"  // Botón de anterior
+                        "next": "Siguiente",
+                        "previous": "Anterior"
                     }
                 }
             });
-
-            // Modal de edición
-            $('#editarStockModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                $('#editarDescripcion').val(button.data('descripcion'));
-                $('#editarTalle').val(button.data('talle'));
-                $('#editarGenero').val(button.data('genero'));
-                $('#editarColor').val(button.data('color'));
-                $('#editarPrecio').val(button.data('precio'));
-                $('#editarCantidad').val(button.data('cantidad'));
-                $('#editarId').val(button.data('id'));
+    
+            updateStockIndicators();
+    
+            $('#stockTable').on('page.dt', function() {
+                setTimeout(updateStockIndicators, 100);
+            });
+    
+            $('#stockTable').on('search.dt', function() {
+                setTimeout(updateStockIndicators, 100);
             });
         });
+    
+        $('#editarStockModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); 
+            var id = button.data('id');
+            var descripción = button.data('descripción');
+            var talle = button.data('talle');
+            var genero = button.data('genero');
+            var color = button.data('color');
+            var precio = button.data('precio');
+            var cantidad = button.data('cantidad');
+            
+            var modal = $(this);
+            modal.find('#edit_descripción').val(descripción);
+            modal.find('#edit_talle').val(talle);
+            modal.find('#edit_genero').val(genero);
+            modal.find('#edit_color').val(color);
+            modal.find('#edit_precio').val(precio);
+            modal.find('#edit_cantidad').val(cantidad);
+    
+            var formAction = "{% url 'edicion' '0' %}".replace('0', id);
+            modal.find('#editarStockForm').attr('action', formAction);
+        });
+    
+        function updateStockIndicators() {
+            const stockCells = document.querySelectorAll('td:nth-child(7)'); 
+            
+            stockCells.forEach(cell => {
+                const quantity = parseInt(cell.textContent);
+                const indicator = cell.querySelector('.stock-indicator');
+                
+                if (indicator) {
+                    if (quantity < 5) {
+                        indicator.innerHTML = '<i class="fas fa-exclamation-triangle stock-warning-red"></i>';
+                        indicator.title = 'Stock crítico';
+                    } else if (quantity >= 5 && quantity <= 7) {
+                        indicator.innerHTML = '<i class="fas fa-exclamation-triangle stock-warning-orange"></i>';
+                        indicator.title = 'Stock bajo';
+                    } else {
+                        indicator.innerHTML = '<i class="fas fa-check-circle stock-warning-green"></i>';
+                        indicator.title = 'Stock normal';
+                    }
+                }
+            });
+        }
     </script>
-</body>
-</html>
