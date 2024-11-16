@@ -6,7 +6,7 @@ class Proveedores(models.Model):
     Nombre = models.CharField(max_length=100)
     Apellido= models.CharField(max_length=100)
     Telefono = models.DecimalField(max_digits=10, decimal_places=2)
-    Correo_electronico = models.CharField(max_length=50)
+    Correo_electronico = models.CharField(max_length=120)
     Dirección= models.CharField(max_length=100)
 
    
