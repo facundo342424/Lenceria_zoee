@@ -24,15 +24,11 @@ from django.urls.conf import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-
- 
-
-    path('',include('CRUD_Productos.urls')),
+    path('',include('CRUD_Users.urls')),
     
-    
-  
     path('',include('CRUD_Proveedores.urls')),
+    path('',include('CRUD_Users.urls')),
+
   
       
      

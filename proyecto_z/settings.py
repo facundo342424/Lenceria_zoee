@@ -17,20 +17,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-y&&gn^cr4e($^c100m%xpx%dh8=@_8^b9h2v79t0^8)m1gufy('
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -48,11 +44,7 @@ INSTALLED_APPS = [
     'CRUD_Productos',
     'CRUD_Proveedores',
     'CRUD_Caja',
-
-    
-    
-    
-
+    'CRUD_Users',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +62,6 @@ ROOT_URLCONF = 'proyecto_z.urls'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -82,14 +73,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'proyecto_z.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -103,14 +92,10 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
-        'sql_mode': 'STRICT_TRANS_TABLES',  # Habilitar modo estricto
+            'sql_mode': 'STRICT_TRANS_TABLES',  # Habilitar modo estricto
         },  # Asegúrate de que este puerto sea el correcto para tu configuración
     }
 }
-
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -130,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -142,11 +126,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/' # La URL raíz para servir archivos estáticos
+STATIC_URL = '/static/'  # La URL raíz para servir archivos estáticos
 
 STATICFILES_DIRS = [
     Path(BASE_DIR) / "static",  # Directorio de archivos estáticos del proyecto principal
@@ -155,10 +138,9 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL='Home'
-LOGOUT_REDIRECT_URL='Home'
-LOGIN_URL='login'
+LOGIN_REDIRECT_URL = 'Home'
+LOGOUT_REDIRECT_URL = 'Home'
+LOGIN_URL = 'login'
 
-#para permitir la carga de modal en iframe
+# Para permitir la carga de modal en iframe
 X_FRAME_OPTIONS = 'SAMEORIGIN'
-
