@@ -13,7 +13,11 @@
 
     <style>
         body {
+<<<<<<< HEAD
             background-color: gray;
+=======
+            background-color: #f8d7dab0;
+>>>>>>> 21f4a39fac1c5dfa2c64a0db820e4ddd17532f6c
             margin-top: 120px;
             margin-bottom: 120px;
         }
@@ -255,6 +259,7 @@
 
     <script>
         $(document).ready(function() {
+<<<<<<< HEAD
         $('#productosTable').DataTable({
             language: {
                 "decimal": "",
@@ -272,6 +277,25 @@
             }
         });
     });
+=======
+            $('#ProveedoresTable').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay datos disponibles en la tabla",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                    "infoFiltered": "(filtrado de _MAX_ registros en total)",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "search": "Buscar:",
+                    "zeroRecords": "No se han encontrado registros coincidentes",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+        });
+>>>>>>> 21f4a39fac1c5dfa2c64a0db820e4ddd17532f6c
 
         $('#editarProveedorModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); 
@@ -294,4 +318,8 @@
         });
     </script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 21f4a39fac1c5dfa2c64a0db820e4ddd17532f6c
