@@ -3,55 +3,27 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h3>Login</h3>
-<head>
-  <style>
-  body, html {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      font-family: Arial, sans-serif;
-      background-color:  rgb(244, 236, 225);
-  }
-
-  .imagen-completa {
-      background-image: url("{% static 'imagenes/ze2.jpg' %}");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 90vh; /* Altura completa de la ventana del navegador */
-      max-width: 100%;  /* Ancho completo de la ventana del navegador Responsivo aplicado*/
-      position: relative; /* Posiciona el contenedor para el contenido */
-      opacity: 0.3;
-  }
-  .contenido {
-      position: absolute; /* Posiciona el contenido sobre la imagen de fondo */
-      top: 10%;
-      left: 50%;
-      transform: translate(-50%, -50%); /* Centra el contenido vertical y horizontalmente */
-      color: rgb(24, 22, 23); /* Color del texto para que contraste con la imagen de fondo */
-      text-align: center;
-      padding: 20px;
-      z-index: 1; /* Asegura que el contenido esté por encima de la imagen */
-
-  }
-</style>
-</head>
-<form action="" method="post">
-    {% csrf_token %}
-
-    <div class="card mx-auto" style="width: 30rem;">
-      <img src="{% static 'imagenes/icono.png' %}" class="img-thumbnail" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"> INGRESE SUS CREDENCIALES</h5>
-          {{ form | crispy }}
-          <div>
-            <p><a href="{% url 'password_reset' %}">Olvide mi Contraseña</a></p>
-            <form action="{% url 'logout' %}" method="post">
-          <button class="btn btn-sm btn-primary float-end" type='sumbmit'>INICIAR SESION</button>    
+<div class="fondo">
+  <div class="imagen-completa" style="background-image: url('{% static 'imagenes/ze2.jpg' %}'); "></div>
+    <div class="contenido">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="card mx-auto-/">
+          <!--<img src="{% static 'imagenes/icono.png' %}" class="img-thumbnail" alt="...">-->
+            <div class="card-body">
+              <h5 class="card-title"> INGRESE SUS CREDENCIALES</h5>
+              {{ form | crispy }}
+              <div>
+                <p><a href="{% url 'password_reset' %}">Olvide mi Contraseña</a></p>
+                <form action="{% url 'logout' %}" method="post">
+              <button class="btn btn-sm btn-primary float-end" type='sumbmit'>INICIAR SESION</button>    
+            </div>
         </div>
+      </form>
     </div>
-</form>
+</div>  
+</div>
 
 {% endblock %}
+
+

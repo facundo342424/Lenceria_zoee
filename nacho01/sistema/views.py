@@ -56,7 +56,7 @@ def login_view(request):
 
     return render(request, 'login.html')
 
-
+@login_required
 def productos(request):
     return render(request, 'productos.html')
 

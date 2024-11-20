@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD_PRODUCTO</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+    <style>
+        body {
+            background-color: #f8d7dab0;
+            margin-top: 60px; 
+            margin-bottom: 60px; 
+        }
+        table {
+            background-color: white;
+        }
+
+        button:hover {
+            background-color: #34403f00;
+        }
+
+        .modal-content {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            box-shadow: rgba(188, 143, 143, 0.555);
+        }
+        .modal-header {
+            background-color: #343a40;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .table {
+            border-color: #343a40da;
+        }
+        .fila-edit {
+            background-color: rgba(0, 0, 0, 0.336);
+        }
+        thead tr {
+            background-color: #343a40;
+            color: rgb(255, 255, 255);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            padding: 10px 0;
+            z-index: 9999;
+            left: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            height: 60px; 
+            text-align: center;
+            z-index: 9999;
+        }
+
+        .main-content {
+            padding-top: 80px; 
+           
+            padding-bottom: 80px;
+        }
+        footer {
+         position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    height: 60px; 
+    text-align: center;
+    z-index: 9999;
+    line-height: 60px; 
+
+    }
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="text-center">Lista de Productos</h1>
+    </header>
+
+    <div class="container main-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <button class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">Agregar Producto +</button>
+                    <a href="{% url 'control_stock' %}" class="btn btn-primary mb-2">Ver Stock</a>
+
+                </div>
+                
+                <div class="table-responsive">
+                    {% for message in messages %}
+                        <p class="alert alert-success mt-3">{{ message }}</p>
+                    {% endfor %}
+                    <table class="table table-bordered table-hover table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID_Producto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Cantidad</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in producto_lista %}
+                                <tr>
+                                    <td>{{ i.id_Producto }}</td>
+                                    <td>{{ i.Nombre }}</td>
+                                    <td>{{ i.Marca }}</td>
+                                    <td>{{ i.Precio }}</td>
+                                    <td>{{ i.Color }}</td>
+                                    <td>{{ i.Cantidad }}</td>
+
+                                    <td>
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarProductoModal" data-id="{{ i.id_Producto }}" data-nombre="{{ i.Nombre }}" data-marca="{{ i.Marca }}" data-precio="{{ i.Precio }}" data-color="{{ i.Color }}"  data-cantidad="{{ i.Cantidad }}">
+                                            <i class="fas fa-pencil-alt fa-2x"></i> 
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="{% url 'borrar_prod' i.id_Producto %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-trash fa-2x"></i> 
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="agregarProductoModal" tabindex="-1" aria-labelledby="agregarProductoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agregarProductoModalLabel">Agregar Producto</h5>
+
+
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="agregarProductoForm" method="post" action="{% url 'Guardar_producto' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" name="Nombre" placeholder="Ingrese nombre de producto" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input type="text" class="form-control" name="Marca" placeholder="Ingrese marca" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" step="0.01" class="form-control" name="Precio" placeholder="Ingrese precio" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Color</label>
+                            <input type="text" class="form-control" name="Color" placeholder="Ingrese color" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad</label>
+                            <input type="number" step="0.01" class="form-control" name="Cantidad" placeholder="Ingrese cantidad" required>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarProductoModalLabel">Editar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editarProductoForm" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_Producto" id="editarProductoId" />
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" id="editarProductoNombre" name="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input type="text" class="form-control" id="editarProductoMarca" name="Marca" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio</label>
+                            <input type="number" step="0.01" class="form-control" id="editarProductoPrecio" name="Precio" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Color</label>
+                            <input type="text" class="form-control" id="editarProductoColor" name="Color" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad</label>
+                            <input type="number" class="form-control" id="editarProductoCantidad" name="Cantidad" required>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable();
+        });
+
+        $('#editarProductoModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); 
+            var id = button.data('id');
+            var nombre = button.data('nombre');
+            var marca = button.data('marca');
+            var precio = button.data('precio');
+            var color = button.data('color');
+            var cantidad = button.data('cantidad');
+            
+            var modal = $(this);
+            modal.find('#editarProductoId').val(id);
+            modal.find('#editarProductoNombre').val(nombre);
+            modal.find('#editarProductoMarca').val(marca);
+            modal.find('#editarProductoPrecio').val(precio);
+            modal.find('#editarProductoColor').val(color);
+            modal.find('#editarProductoCantidad').val(cantidad);
+        });
+    </script>
+</body>
+</html>

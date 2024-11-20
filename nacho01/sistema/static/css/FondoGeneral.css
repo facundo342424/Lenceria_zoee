@@ -1,30 +1,33 @@
-body, html {
-    height: 100%;
-    margin: 0; 
+.fondo {
+    position: absolute;
+    height: 100%; /* Altura de la ventana */
+    margin: 0;
     padding: 0;
     width: 100%;
     font-family: Arial, sans-serif;
-    background-color:  rgb(244, 236, 225);
+    background-color: rgb(244, 236, 225); /* Color de fondo */
 }
 
 .imagen-completa {
-    background-image: url("{% static 'imagenes/ze2.jpg' %}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 90vh; /* Altura completa de la ventana del navegador */
-    max-width: 100%;  /* Ancho completo de la ventana del navegador Responsivo aplicado*/
-    position: relative; /* Posiciona el contenedor para el contenido */
-    opacity: 0.3;
+    background-image: url("{% static 'imagenes/ze2.jpg' %}"); /* Ruta de la imagen */
+    background-size: cover; /* Cubrir el área disponible */
+    background-position: center; /* Centrar la imagen */
+    position: relative; /* Asegura que la imagen esté sobre el fondo */
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajuste para centrar la imagen */
+    width: 100vw; /* Ocupa todo el ancho de la ventana */
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    
 }
+
 .contenido {
-    position: absolute; /* Posiciona el contenido sobre la imagen de fondo */
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centra el contenido vertical y horizontalmente */
-    color: rgb(24, 22, 23); /* Color del texto para que contraste con la imagen de fondo */
+    position: absolute; /* Coloca el contenido sobre la imagen */
+    top: 30%; /* Centrado vertical */
+    left: 50%; /* Centrado horizontal */
+    transform: translate(-50%, -50%); /* Ajuste para centrar el contenido */
+    color: rgb(24, 22, 23); /* Color del texto */
     text-align: center;
     padding: 20px;
     z-index: 1; /* Asegura que el contenido esté por encima de la imagen */
-
 }
