@@ -31,30 +31,37 @@ def register(request):
             elif user.is_staff:
                 return redirect('admin_dashboard')  # Redirigir al panel de administrador
             else:
-                return redirect('user_dashboard')  # Redirigir a la página de usuario normal
+                return redirect('perfil.html')  # Redirigir a la página de usuario normal
         
     return render(request, 'registration/register.html', data)
 
-def login_view(request):
+def register(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+    
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
+        user_creation_form = CustomUserCreationForm(data=request.POST)
 
-        if user is not None:
+        if user_creation_form.is_valid():
+            user_creation_form.save()
+
+            # Autenticación y login del usuario
+            user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
             
-            # Redirigir según el tipo de usuario
+            # Redirección según el tipo de usuario
             if user.is_superuser:
-                return redirect('superuser_dashboard')  # Redirige al dashboard del superusuario
+                return redirect('superuser_dashboard')  # Redirigir al panel del superusuario
             elif user.is_staff:
-                return redirect('admin_dashboard')  # Redirige al dashboard del administrador
+                return redirect('admin_dashboard')  # Redirigir al panel de administrador
             else:
-                return redirect('user_dashboard')  # Redirige al dashboard del usuario regular
+                return redirect('perfil')  # Redirigir a la página de usuario normal
         else:
-            return render(request, 'login.html', {'error': 'Credenciales incorrectas'})
+            # Si el formulario no es válido, mostrar los errores
+            return render(request, 'registration/register.html', {'form': user_creation_form})
 
-    return render(request, 'login.html')
+    return render(request, 'registration/register.html', data)
 
 @login_required
 def productos(request):
