@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Panel del Superusuario</h1>
+  
+  <p>Bienvenido, {{ user.username }}. Tienes acceso completo al sistema como superusuario.</p>
+
+  <div class="dashboard-section">
+    <h2>Gestión de Todo el Sistema</h2>
+    <p>Aquí puedes gestionar todo el sistema, incluyendo usuarios, productos y más.</p>
+    <a  class="btn btn-primary" href="{% url 'Gestion_Admin' %} ">Acceder al panel de Administrador</a>
+    
+    
+  </div>
+
+  <div class="dashboard-section">
+    <h2>Ver Estadísticas del Sistema</h2>
+    <p>Accede a estadísticas detalladas sobre el uso del sistema, ventas, usuarios, etc.</p>
+    <a  class="btn btn-primary">Ver estadísticas</a>
+  </div>
+
+  <div class="dashboard-section">
+    <h2>Configurar Sistema Global</h2>
+    <p>Accede a las configuraciones avanzadas del sistema, como backups, seguridad, etc.</p>
+    <a  class="btn btn-primary">Ver configuración</a>
+  </div>
+
+  <div class="dashboard-section">
+    <h2>Gestión de Logs</h2>
+    <p>Accede a los logs del sistema para ver actividades, errores y registros.</p>
+    <a  class="btn btn-primary">Ver logs</a>
+  </div>
+
+{% endblock %}

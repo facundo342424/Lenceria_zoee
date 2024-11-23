@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Panel de Administrador</h1>
+  
+  <p>Bienvenido, {{ user.username }}. Eres un administrador del sistema.</p>
+
+  <div class="dashboard-section">
+    <h2>Gestión de Productos</h2>
+    <p>Administra los productos disponibles en el sistema.</p>
+    
+    <a  class="btn btn-primary">Ver productos</a>
+  </div>
+
+  <div class="dashboard-section">
+    <h2>Gestión de Usuarios</h2>
+    <p>Administra los usuarios del sistema.</p>
+    <a  class="btn btn-primary">Ver lista de usuarios</a>
+  </div>
+
+
+
+{% endblock %}

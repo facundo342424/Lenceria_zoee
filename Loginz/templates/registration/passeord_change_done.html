@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Cambiar contraseña{% endblock %}
+
+{% block content %}
+  <h1>Cambiar contraseña</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Cambiar contraseña</button>
+  </form>
+  {% if user.is_authenticated %}
+    <p>Estás autenticado como {{ user.username }}</p>
+  {% endif %}
+{% endblock content %}
