@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 class Empleados(models.Model):
     id_Empleado = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=100)

@@ -1,15 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Productos,Stock
-from django.contrib.auth.decorators import login_required
 
-
-@login_required
 def lista(request):
     producto_lista = Productos.objects.all()
     return render(request, 'lista.html', {'producto_lista': producto_lista})
 
-@login_required
 def Guardar_producto(request):
     if request.method == 'POST':
         Nombre = request.POST['Nombre']
@@ -40,13 +36,12 @@ def Guardar_producto(request):
     return render(request, 'lista.html')
 
 
-@login_required
 def borrar_prod(request, id_Producto):
     producto = Productos.objects.get(id_Producto=id_Producto)
     producto.delete()
     messages.info(request, 'Producto eliminado')
     return redirect('lista')
-@login_required
+
 def edit_prod(request, id_Producto):
     edita_producto = Productos.objects.get(id_Producto=id_Producto)  
 
@@ -56,7 +51,7 @@ def edit_prod(request, id_Producto):
         'producto_lista': producto_lista
     }
     return render(request, 'lista.html', valor)
-@login_required
+
 def edi_prod(request, id_Producto):
     producto = Productos.objects.get(id_Producto=id_Producto)
     if request.method == 'POST':
@@ -74,14 +69,14 @@ def edi_prod(request, id_Producto):
 
 
 
-@login_required
+
 def control_stock(request):
     stock_lista = Stock.objects.all()  
     contexto = {
         'stock_lista': stock_lista
     }
     return render(request, 'control_stock.html', contexto)
-@login_required
+
 def Añadir_stock(request):
     if request.method == 'POST':
         Descripción = request.POST['Descripción']
@@ -124,7 +119,7 @@ def Añadir_stock(request):
     return render(request, 'control_stock.html', contexto)
 
    
-@login_required
+
 def eliminar(request, id_stock):
     stock = Stock.objects.get(id_stock=id_stock)
     
@@ -139,7 +134,7 @@ def eliminar(request, id_stock):
         messages.success(request, 'Stock eliminado con éxito.')
     
     return redirect('control_stock')  
-@login_required
+
 def editar(request, id_stock):
     try:
         editar_stock = Stock.objects.get(id_stock=id_stock)
@@ -154,7 +149,7 @@ def editar(request, id_stock):
     }
     return render(request, 'control_stock.html', contexto)
 
-@login_required
+
 def edicion(request, id_stock):
     try:
         stock = Stock.objects.get(id_stock=id_stock)
@@ -179,10 +174,6 @@ def edicion(request, id_stock):
     }
     return render(request, 'control_stock.html', contexto)
 
-
-
-
-    
 
 
 

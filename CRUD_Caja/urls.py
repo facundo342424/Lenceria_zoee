@@ -1,5 +1,3 @@
-# Caja/urls.py
-
 from django.urls import path
 from .views import Inicio,Apertura_de_caja, Cierre
 

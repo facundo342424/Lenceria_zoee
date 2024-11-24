@@ -1,4 +1,3 @@
-# forms.py
 from django import forms
 from models import Productos,Stock
 
@@ -11,5 +10,3 @@ class StockForm(forms.ModelForm):
         model = Stock
         fields = ['id_stock','Descripción', 'Talle', 'Genero','Color','Precio','Cantidad']
     
-        
-  

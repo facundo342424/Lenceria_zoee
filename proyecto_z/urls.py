@@ -41,7 +41,6 @@ urlpatterns = [
     
     path('proveedores',include('CRUD_Proveedores.urls')),
 
-  
+]
       
      
-]

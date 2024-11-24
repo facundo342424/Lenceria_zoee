@@ -1,6 +1,3 @@
-# Caja/views.py
-
-# Caja/views.py
 from django.shortcuts import render
 
 def Inicio(request):

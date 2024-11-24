@@ -24,3 +24,17 @@ class CRUD_ProductosConfig(AppConfig):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

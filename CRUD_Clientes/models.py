@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class Clientes(models.Model):
     id_Cliente = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=100)
@@ -11,4 +11,5 @@ class Clientes(models.Model):
     
     class Meta:
         db_table = 'Clientess'
+
 
