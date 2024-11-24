@@ -1,36 +1,71 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Panel del Superusuario</h1>
+<style>
+  body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #FAD0C4 0%, #b4b5e2 50%, #ff69b441 100%);
+    }
+    .titulo-barra {
+  background-color: white; /* Color blanco */
+  padding: 20px;
+  display: inline-block;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 65%; /* Ajusta el porcentaje según lo que necesites */
+}
+
+    .btn-acceder {
+      display: inline-block;
+      padding: 20px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(to right, #d294eb, rgb(151, 143, 188));
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    }
+    .btn-acceder:hover {
+      background: #cb4fd9;
+      transform: scale(1.05);
+    }
+</style>
+<div class="text-center container mt-5">
+  <div class="titulo-barra">
+    <h3>Panel del Superusuario</h3>
+  </div>
   
-  <p>Bienvenido, {{ user.username }}. Tienes acceso completo al sistema como superusuario.</p>
+  <p class="mt-3">Bienvenido, <strong>{{ user.username }}</strong>. Tienes acceso completo al sistema como superusuario.</p>
 
-  <div class="dashboard-section">
+  <div class="dashboard-section mt-4">
     <h2>Gestión de Todo el Sistema</h2>
-    <p>Aquí puedes gestionar todo el sistema, incluyendo usuarios, productos y más.</p>
-    <a  class="btn btn-primary" href="{% url 'Gestion_Admin' %} ">Acceder al panel de Administrador</a>
-    
-    
+    <p>Aquí puedes gestionar todo el sistema, incluyendo usuarios , productos,proveedores y empleados.</p>
+    <a class="btn-acceder mt-2" href="{% url 'Gestion_Admin' %}">Acceder al panel de Administrador</a>
   </div>
 
-  <div class="dashboard-section">
+  <div class="dashboard-section mt-5">
     <h2>Ver Estadísticas del Sistema</h2>
-    <p>Accede a estadísticas detalladas sobre el uso del sistema, ventas, usuarios, etc.</p>
-    <a  class="btn btn-primary">Ver estadísticas</a>
+    <p>Accede a estadísticas detalladas sobre el uso del sistema ,ventas,caja y clientes.</p>
+    <a class="btn-acceder mt-2 " href="{% url 'estadistica' %}">Ver estadísticas</a>
   </div>
 
-  <div class="dashboard-section">
+  <div class="dashboard-section mt-5">
     <h2>Configurar Sistema Global</h2>
     <p>Accede a las configuraciones avanzadas del sistema, como backups, seguridad, etc.</p>
-    <a  class="btn btn-primary">Ver configuración</a>
+    <a class="btn-acceder mt-2">Ver configuración</a>
   </div>
 
-  <div class="dashboard-section">
+  <div class="dashboard-section mt-5">
     <h2>Gestión de Logs</h2>
     <p>Accede a los logs del sistema para ver actividades, errores y registros.</p>
-    <a  class="btn btn-primary">Ver logs</a>
+    <a class="btn-acceder mt-2">Ver logs</a>
   </div>
-
-
+</div>
 {% endblock %}

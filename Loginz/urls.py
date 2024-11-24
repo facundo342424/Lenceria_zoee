@@ -21,6 +21,7 @@ urlpatterns = [
     ), name='password_reset_complete'),
     path('superuser_dashboard/', views.superuser_dashboard, name='superuser_dashboard'),
     path('Gestion_Admin/',views.Gestion_Admin,name='Gestion_Admin'),
+    path('estadistica/',views.estadistica,name='estadistica'),
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('stats_dashboard/', views.stats_dashboard, name='stats_dashboard'),
 ]

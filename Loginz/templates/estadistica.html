@@ -57,23 +57,30 @@
 
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       padding: 20px;
       justify-content: center;
       max-width: 1200px;
       margin: 0 auto;
     }
-
     .grid-item {
-      background-color: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.3s ease-in-out;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 400px; /* Ancho máximo para limitar el tamaño */
+  margin: 0 auto; /* Centrar los bloques dentro del contenedor */
+}
+.btn-acceder:hover {
+      background: #d9534f;
+      transform: scale(1.05);
     }
+
+    
 
     .grid-item:hover {
       transform: scale(1.05);
@@ -81,13 +88,13 @@
     }
 
     .grid-item img {
-      width: 100%;
-      height: 450px;
+      width: 80%;
+      height: 500px;
       object-fit: cover;
     }
 
     .grid-item h3 {
-      font-size: 18px;
+      font-size: 20px;
       margin: 10px 0;
       color: rgb(24, 22, 23);
     }
@@ -137,36 +144,24 @@
 <body>
   <div class="contenido">
     <div class="titulo-barra">
-      <h3>Gestión del Administrador</h3>
+      <h3>Estadistica del sistema</h3>
     </div>
 
     <div class="grid-container">
       <div class="grid-item">
-        <img src="{% static 'imagenes/imagen2.jpg' %}" >
-        <h3>Productos</h3>
-        <a href="{% url 'lista' %}" class="btn-acceder">Acceder</a>
+        <img src="{% static 'imagenes/imagen6.jpg' %}" >
+        <h3>Clientes</h3>
+        <a href="{% url 'clientes' %}" class="btn-acceder">Acceder</a>
       </div>
       
       <div class="grid-item">
-        <img src="{% static 'imagenes/imagen10.jpg' %}" >
-        <h3>Usuarios</h3>
+        <img src="{% static 'imagenes/imagen7.jpg' %}" >
+        <h3>Ventas</h3>
         <a href="{% url 'lista_user' %}" class="btn-acceder">Acceder</a>
       </div>
       
-      <div class="grid-item">
-        <img src="{% static 'imagenes/imagen9.jpg' %}" >
-        <h3>Proveedores</h3>
-        <a href="{% url 'proveedores' %}" class="btn-acceder">Acceder</a>
-      </div>
-
-      <div class="grid-item">
-        <img src="{% static 'imagenes/imagen11.jpg' %}" >
-        <h3>Empleados</h3>
-        <a href="{% url 'empleados' %}" class="btn-acceder">Acceder</a>
-      </div>
     </div>
   </div>
-
 
   <script>
     function searchProducts() {

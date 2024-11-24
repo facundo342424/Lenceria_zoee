@@ -57,7 +57,7 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-
+@login_required
 def productos(request):
     return render(request, 'productos.html')
 
@@ -111,5 +111,9 @@ def stats_dashboard(request):
 
 def Gestion_Admin(request):
     return render(request, 'Gestion_Admin.html')
+
+def estadistica(request):
+    return render(request, 'estadistica.html')
+
 
 
