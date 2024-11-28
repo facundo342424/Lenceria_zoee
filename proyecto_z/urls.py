@@ -33,6 +33,11 @@ urlpatterns = [
     path('proveedores/',include('CRUD_Proveedores.urls')),
     path('clientes/',include('CRUD_Clientes.urls')),
     path('lista_ventas/',include('Ventas.urls')),
+    path('Control_stock/',include('estadistica_stock.urls')),
+    
+
+    
+
     
     
 

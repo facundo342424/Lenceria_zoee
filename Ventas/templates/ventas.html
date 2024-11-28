@@ -13,7 +13,7 @@
     <style>
         body {
             background-color:rgba(255, 0, 0, 0.13);
-            color: #ffffff;
+            
             padding-top: 120px;
             padding-bottom:120px;
         }
@@ -102,6 +102,9 @@
         .stock-warning-green {
             color: #198754;
         }
+        .btn btn-success {
+            background-color: #198754;
+        }
     </style>
 </head>
 <body>
@@ -188,19 +191,19 @@
                     <form id="agregarVentaForm" method="post" action="{% url 'Añadir_venta' %}">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label>Fecha</label>
-                            <input type="date" class="form-control" id="fecha_venta" name="Fecha_venta" required>
+                            <label>Fecha_venta</label>
+                            <input type="date" class="form-control"  name="Fecha_venta"  placeholder="Ingrese fecha de la venta"   required>
                         </div>
                         
                         
                         <div class="form-group">
-                            <label>Total</label>
-                            <input type="number" step="0.01" class="form-control" name="Total" placeholder="Ingrese Total" required>
+                            <label>Total_venta</label>
+                            <input type="number" step="0.01" class="form-control" name="Total_venta" placeholder="Ingrese Total" required>
 
                         </div>
                         <div class="form-group">
-                            <label>Tipo</label>
-                            <input type="text" class="form-control" name="Tipo" placeholder="Ingrese el Tipo de venta" required>
+                            <label>Nombre_de_tipo_de_venta</label>
+                            <input type="text" class="form-control" name="Nombre_de_tipo_de_venta" placeholder="Ingrese el Tipo de venta" required>
                         </div>
                         <div class="form-group">
                             <label>Descripción</label>
@@ -299,13 +302,13 @@
         $('#editarVentaModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); 
             var id = button.data('id');
+            var fecha_venta = button.data('fecha_venta');
+            var total_venta = button.data('total_venta');
+            var nombre_de_tipo_de_venta = button.data('nombre_de_tipo_de_venta');
             var descripción = button.data('descripción');
-            var talle = button.data('talle');
-            var genero = button.data('genero');
-            var color = button.data('color');
-            var precio = button.data('precio');
-            var cantidad = button.data('cantidad');
-            
+            var dni = button.data('dni');
+            var nombre = button.data('nombre');
+
             var modal = $(this);
             modal.find('#edit_descripción').val(descripción);
             modal.find('#edit_talle').val(talle);
@@ -318,20 +321,7 @@
             modal.find('#editarStockForm').attr('action', formAction);
         });
     
-        function updateStockIndicators() {
-    $('#stockTable tbody tr').each(function() {
-        var cantidad = parseInt($(this).find('td:eq(7)').text());
-        var indicator = $(this).find('.stock-indicator');
-
-        if (cantidad <= 5) {
-            indicator.css('background-color', '#dc3545'); // Rojo
-        } else if (cantidad <= 10) {
-            indicator.css('background-color', '#fd7e14'); // Naranja
-        } else {
-            indicator.css('background-color', '#198754'); // Verde
-        }
-    });
-}
+        
 
 
 </script>

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'CRUD_Clientes',
     'Loginz',
     'Ventas',
+    'estadistica_stock',
 
    
 

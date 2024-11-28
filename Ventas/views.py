@@ -13,15 +13,18 @@ def Añadir_venta(request):
         Descripción = request.POST['Descripción']
         Dni = request.POST['Dni']
         Nombre = request.POST['Nombre']
+        print(request.POST)
+
 
 
 
         if Ventas.objects.filter(Fecha_venta=Fecha_venta, Total_venta=Total_venta, Nombre_de_tipo_de_venta=Nombre_de_tipo_de_venta, Descripción=Descripción, Dni=Dni,Nombre=Nombre).exists():
-            messages.error(request, 'Este producto ya existe.')
+            messages.error(request, 'Esta venta ya existe.')
         else:
             venta = Ventas(Fecha_venta=Fecha_venta, Total_venta=Total_venta, Nombre_de_tipo_de_venta=Nombre_de_tipo_de_venta, Descripción=Descripción, Dni=Dni,Nombre=Nombre)
+            print(venta)
             venta.save()
-
+        
 
             messages.success(request, '¡Venta añadida!')
             return redirect('venta_lista')

@@ -1,0 +1,90 @@
+<h1>Control de stock </h1>
+
+<!-- Pie chart container -->
+<div id="container" style="width: 75%;">
+  <canvas id="pie-chart"></canvas>
+</div>
+
+<!-- Bar chart container -->
+<div id="container" style="width: 75%;">
+  
+</div>
+
+<!-- Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script>
+  // Configuración para el gráfico de tipo pie
+  var config = {
+    type: 'pie',
+    data: {
+      datasets: [{
+        data: {{ data|safe }},
+        backgroundColor: [
+          '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3',
+          '#7D888F','#B9C5CD','#769FB9','#C7874D','#F57E12','#DDE13B','#01CAB0'
+        ],
+        label: 'Préstamos'
+      }],
+      // Se asegura que 'labels' se pase como una lista JSON válida
+      labels: {{ labels|safe }}
+    },
+    options: {
+      responsive: true,
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Préstamos Pie Chart'
+      }
+    }
+  };
+
+  // Cargar el gráfico de tipo pie al cargar la página
+  window.onload = function() {
+    var ctx = document.getElementById('pie-chart').getContext('2d');
+    window.myPie = new Chart(ctx, config);
+  };
+</script>
+
+<script>
+  // Cargar el gráfico de barras (bar chart) mediante una llamada AJAX
+  $(function () {
+    var $populationChart = $("#population-chart");
+
+    // Realizar una solicitud AJAX (puedes cambiar la URL de acuerdo a tus necesidades)
+    $.ajax({
+      url: $populationChart.data("url"),
+      success: function (data) {
+        var ctx = $populationChart[0].getContext("2d");
+
+        // Configuración del gráfico de barras
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: {{ labels|safe }},
+            datasets: [{
+              label: 'Préstamos',
+              backgroundColor: '#DDE8EF',
+              data: {{ data|safe }}
+            }]
+          },
+          options: {
+            responsive: true,
+            legend: {
+              position: 'top'
+            },
+            title: {
+              display: true,
+              text: 'Préstamos Bar Chart'
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
