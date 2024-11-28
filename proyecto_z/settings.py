@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'Loginz',
     'Ventas',
     'estadistica_stock',
+    'producto_estadistica',
 
    
 

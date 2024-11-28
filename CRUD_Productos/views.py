@@ -1,10 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Productos,Stock
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from decimal import Decimal
+from django.http import JsonResponse
 
-def lista(request):
-    producto_lista = Productos.objects.all()  
-    return render(request, 'lista.html', {'producto_lista': producto_lista}) 
+def lista_productos(request):
+    producto_lista = Productos.objects.all()
+    return render(request, 'lista.html', {'producto_lista': producto_lista})
+
+@login_required
+def productos_venta(request): 
+    productos_venta = Productos.objects.all()
+    return render(request, 'productos.html', {'productos_venta': productos_venta})
+
 def Guardar_producto(request):
     if request.method == 'POST':
         Nombre = request.POST['Nombre']
@@ -12,14 +22,25 @@ def Guardar_producto(request):
         Precio = request.POST['Precio']
         Color = request.POST['Color']
         Cantidad = request.POST['Cantidad']
+        imagen = request.FILES.get('imagen')
+
+        # Si no se sube ninguna imagen, asigna una imagen predeterminada
+        if not imagen:
+            imagen = 'images/default-product.jpg'  # Ruta a la imagen por defecto
 
         if Productos.objects.filter(Nombre=Nombre, Marca=Marca, Precio=Precio, Color=Color, Cantidad=Cantidad).exists():
             messages.error(request, 'Este producto ya existe.')
         else:
-            producto = Productos(Nombre=Nombre, Marca=Marca, Precio=Precio, Color=Color, Cantidad=Cantidad)
+            producto = Productos(
+                Nombre=Nombre, 
+                Marca=Marca, 
+                Precio=Precio, 
+                Color=Color, 
+                Cantidad=Cantidad,
+                imagen=imagen
+            )
             producto.save()
 
-            
             stock = Stock(
                 Descripción=Nombre, 
                 Color=Color, 
@@ -30,7 +51,7 @@ def Guardar_producto(request):
             stock.save()
 
             messages.success(request, '¡Producto y stock guardados con éxito!')
-            return redirect('lista')
+            return redirect('lista_productos')
 
     return render(request, 'lista.html')
 
@@ -39,7 +60,7 @@ def borrar_prod(request, id_Producto):
     producto = Productos.objects.get(id_Producto=id_Producto)
     producto.delete()
     messages.info(request, 'Producto eliminado')
-    return redirect('lista')
+    return redirect('lista_productos')
 
 def edit_prod(request, id_Producto):
     edita_producto = Productos.objects.get(id_Producto=id_Producto)  
@@ -62,9 +83,9 @@ def edi_prod(request, id_Producto):
         producto.save()
         messages.success(request, 'Producto actualizado con éxito')
         
-        return redirect('lista')
+        return redirect('lista_productos')
 
-    return redirect('lista')
+    return redirect('lista_productos')
 
 
 
@@ -175,6 +196,64 @@ def edicion(request, id_stock):
 
 
 
+def detalle_producto(request, id_Producto):
+    productos = get_object_or_404(Productos, id_Producto=id_Producto)
+    return render(request, 'producto_detalle.html', {'producto': productos})
 
- 
+
+def agregar_al_carrito(request, id_Producto):
+    producto = get_object_or_404(Productos, id_Producto=id_Producto)
+    carrito = request.session.get('carrito', {})
+
+    if isinstance(carrito, list):
+        carrito = {}
+    precio = float(producto.Precio)
+
+    if str(producto.id_Producto) in carrito:
+        carrito[str(producto.id_Producto)]['cantidad'] += 1
+    else:
+        carrito[str(producto.id_Producto)] = {
+            'nombre': producto.Nombre,
+            'precio': precio,
+            'cantidad': 1,
+        }
+
+    request.session['carrito'] = carrito
+
+    total_items = sum(item['cantidad'] for item in carrito.values())
+
+    return JsonResponse({'success': True, 'total_items': total_items})
+
+
+def ver_carrito(request):
+    carrito = request.session.get('carrito', {})
+    total = 0 
+    for item in carrito.values():
+        item['subtotal'] = item['precio'] * item['cantidad'] 
+        total += item['subtotal']  
+    return render(request, 'carrito.html', {'carrito': carrito, 'total': total})
+
+
+def borrar_prod_carrito(request, id_Producto):
+    carrito = request.session.get('carrito', {})
+    
+    if str(id_Producto) in carrito:
+        if carrito[str(id_Producto)]['cantidad'] > 1:
+            carrito[str(id_Producto)]['cantidad'] -= 1  # Reduce la cantidad en 1
+        else:
+            del carrito[str(id_Producto)]  # Si la cantidad es 1, elimina el producto del carrito
+
+        request.session['carrito'] = carrito
+        messages.info(request, 'Producto actualizado en el carrito.')
+    else:
+        messages.error(request, 'Producto no encontrado en el carrito.')
+
+    return redirect('ver_carrito')
+
+
+
+def limpiar_carrito(request):
+    request.session['carrito'] = {}
+    messages.success(request, 'Carrito vaciado con éxito.')
+    return redirect('ver_carrito')
 

@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PREGUNTAS FRECUENTES / LENCERIA ZOE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7dab0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            margin: 20px;
+            background-color: #f8d7dab0;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .faq-item {
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            margin: 10px 0;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .faq-item h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .faq-item p {
+            font-size: 1.1em;
+            color: #555;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            min-height: 100px;
+            padding: 20px 50px;
+            display: flex; 
+            justify-self: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .social-icon {
+            display: felx;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 10px 5px;
+            flex-wrap: wrap;
+        }
+        .icon-elem{
+            list-style: none;
+        }
+        .icon{
+            color: black;
+            font-size: 32px;
+            display:  inline-block;
+            margin: 0 10px;
+            transition: 0.5s;
+        }
+        .icon:hover{
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Preguntas Frecuentes (FAQ)</h1>
+</header>
+
+<main>
+    <section class="faq-item">
+        <h2>¿Cómo puedo hacer un pedido en línea?</h2>
+        <p>Para hacer un pedido, simplemente navega por nuestras categorías de productos, selecciona los artículos que te gusten, elige el tamaño y color, y haz clic en "Agregar al carrito". Luego, ve a tu carrito de compras, revisa tu pedido, y procede al pago. ¡Es rápido y sencillo!</p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Cuáles son las opciones de pago?</h2>
+        <p>Aceptamos varias formas de pago para tu comodidad:
+            <ul>
+                <li>Tarjetas de crédito/débito (Visa, MasterCard, American Express)</li>
+                <li>PayPal</li>
+                <li>Transferencia bancaria (disponible en algunas regiones)</li>
+                <li>Pago contra entrega (disponible en ciertas zonas)</li>
+            </ul>
+        </p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Dónde puedo ver el estado de mi pedido?</h2>
+        <p>Una vez que tu pedido haya sido procesado, recibirás un correo electrónico con un número de seguimiento. Puedes usar ese número para rastrear tu pedido en la página web de la empresa de mensajería.</p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Cuánto tiempo tarda en llegar mi pedido?</h2>
+        <p>El tiempo de entrega varía según tu ubicación y el tipo de envío seleccionado. Generalmente, los pedidos se entregan dentro de <strong>3 a 7 días hábiles</strong>. Te enviaremos un correo de confirmación con los detalles de tu envío.</p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Puedo cambiar o devolver un artículo?</h2>
+        <p>¡Sí! Aceptamos cambios y devoluciones dentro de <strong>30 días</strong> después de la compra. Los productos deben estar en su estado original, sin usar, con las etiquetas intactas. Para más detalles, consulta nuestra <strong>Política de Devoluciones</strong> en la sección de "Ayuda".</p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Cómo sé qué talla debo elegir?</h2>
+        <p>Puedes consultar nuestra <strong>Guía de Tallas</strong> en la página de cada producto. Si tienes dudas sobre cómo elegir tu talla, puedes escribirnos o utilizar el servicio de chat en vivo para recibir ayuda personalizada.</p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Hacen envíos internacionales?</h2>
+        <p>¡Sí! Realizamos envíos a la mayoría de los países. El costo y el tiempo de entrega dependerán de tu ubicación. Durante el proceso de compra podrás ver el costo estimado de envío antes de finalizar tu pedido.</p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Puedo modificar o cancelar un pedido después de realizarlo?</h2>
+        <p>Si necesitas modificar o cancelar un pedido, por favor contáctanos lo antes posible. Si el pedido aún no ha sido procesado, haremos todo lo posible para realizar los cambios. Si ya ha sido enviado, no podremos realizar modificaciones, pero puedes devolver los productos según nuestra política de devoluciones.</p>
+    </section>
+
+    <section class="faq-item">
+        <h2>¿Puedo recibir notificaciones sobre nuevos productos?</h2>
+        <p>Sí, puedes suscribirte a nuestro boletín de noticias para recibir información sobre nuevos productos, ofertas especiales y otras novedades de nuestra tienda. Solo tienes que ingresar tu correo electrónico en la sección de suscripción.</p>
+    </section>
+</main>
+</body>
+{% endblock %}

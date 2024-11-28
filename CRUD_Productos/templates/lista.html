@@ -180,7 +180,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="agregarProductoForm" method="post" action="{% url 'Guardar_producto' %}">
+                    <form id="agregarProductoForm" method="post" enctype="multipart/form-data" action="{% url 'Guardar_producto' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <label>Nombre</label>
@@ -201,6 +201,10 @@
                         <div class="form-group">
                             <label>Cantidad</label>
                             <input type="number" class="form-control" name="Cantidad" placeholder="Ingrese cantidad" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Imagen</label>
+                            <input type="file" class="form-control" name="imagen">
                         </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-success">Guardar</button>

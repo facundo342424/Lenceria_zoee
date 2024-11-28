@@ -7,16 +7,13 @@ class Productos(models.Model):
     Precio = models.DecimalField(max_digits=10, decimal_places=2)
     Color = models.CharField(max_length=100)
     Cantidad = models.DecimalField(max_digits=10, decimal_places=2)
-    imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
-    surl = models.CharField(db_column='sUrl', max_length=250)  
-
-
+    imagen = models.ImageField(upload_to='productos/', blank=True, null=True)  
 
     class Meta:
         db_table = 'productos'
 
     def __str__(self):
-        return f"{self.id_Producto} "
+        return f"{self.id_Producto}"
 
 
 class Stock(models.Model):
@@ -30,7 +27,6 @@ class Stock(models.Model):
     Cantidad = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=0)
 
     class Meta:
-        managed = False  
         db_table = 'stock'
 
     def __str__(self):

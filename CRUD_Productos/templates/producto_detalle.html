@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <style>
+    body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #FAD0C4 0%, #FFC1CC 50%, #FF69B4 100%);
+    }
+
+    .contenido {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .search-bar button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #eb94d0;
+      color: white;
+      cursor: pointer;
+    }
+
+    .search-bar button:hover {
+      background: #d9534f;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 20px; 
+      padding: 20px;
+      justify-content: center;
+      max-width: 1200px; 
+      margin: 0 auto; 
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .grid-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: auto;
+    }
+
+    .grid-item h1 {
+      font-size: 16px;
+      margin: 10px 0;
+      color: rgb(24, 22, 23);
+    }
+
+    .grid-item p {
+      font-size: 14px;
+      color: rgb(50, 50, 50);
+      margin: 0 10px 10px 10px;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #d9534f;
+      margin: 10px 0;
+    }
+
+    button {
+      background: linear-gradient(to right, #eb94d0, rgb(188, 143, 168));
+      border-radius: 12px;
+      padding: 10px 24px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+
+    }
+  </style>
+  
+</head>
+  <div class="contenido">
+    <h3>Detalles del Producto</h3>
+
+    <div class="producto-detalle">
+      <div class="imagen-producto">
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.Nombre }}">
+      </div>
+      <div class="informacion-producto">
+        <h1>Detalles del Producto: {{ producto.Nombre }}</h1>
+        <p><strong>Marca:</strong> {{ producto.Marca }}</p>
+        <p><strong>Precio:</strong> ${{ producto.Precio }}</p>
+        <p><strong>Color:</strong> {{ producto.Color }}</p>
+        <p><strong>Cantidad Disponible:</strong> {{ producto.Cantidad }}</p>
+        <p>Descripcion: {{ stock.Descripción }}</p>
+        <button type="button">Comprar</button>
+
+        <form method="post" action="{% url 'agregar_al_carrito' producto.id_Producto %}" id="form-agregar-carrito">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+      </form>
+      </div>
+    </div>
+  </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const formAgregarCarrito = document.getElementById('form-agregar-carrito');
+      const contadorCarrito = document.getElementById('contador-carrito');
+  
+      formAgregarCarrito.addEventListener('submit', function (e) {
+        e.preventDefault();  
+        fetch(formAgregarCarrito.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+          },
+          body: JSON.stringify({ 'id_Producto': formAgregarCarrito.dataset.productId })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Actualiza el contador del carrito
+            contadorCarrito.textContent = data.total_items;
+            
+            // Muestra una animación o mensaje para confirmar que el producto fue agregado
+            alert('Producto agregado al carrito');
+          } else {
+            alert('Hubo un problema al agregar el producto al carrito');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+    });
+</script>
+{% endblock %}

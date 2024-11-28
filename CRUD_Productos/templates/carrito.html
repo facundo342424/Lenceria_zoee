@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #FAD0C4 0%, #FFC1CC 50%, #FF69B4 100%);
+    }
+
+    .contenido {
+      text-align: center;
+      margin: 20px auto;
+      flex: 1;
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .search-bar button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #eb94d0;
+      color: white;
+      cursor: pointer;
+    }
+
+    .search-bar button:hover {
+      background: #d9534f;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 20px; 
+      padding: 20px;
+      justify-content: center;
+      max-width: 1200px; 
+      margin: 0 auto; 
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .grid-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: auto;
+    }
+
+    .grid-item h1 {
+      font-size: 16px;
+      margin: 10px 0;
+      color: rgb(24, 22, 23);
+    }
+
+    .grid-item p {
+      font-size: 14px;
+      color: rgb(50, 50, 50);
+      margin: 0 10px 10px 10px;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #d9534f;
+      margin: 10px 0;
+    }
+
+    button {
+      background: linear-gradient(to right, #eb94d0, rgb(188, 143, 168));
+      border-radius: 12px;
+      padding: 10px 24px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    footer {
+            background-color: #333;
+            color: white;
+            min-height: 100px;
+            padding: 20px 50px;
+            display: flex; 
+            justify-self: center;
+            align-items: center;
+            flex-direction: column;
+            position:relative;
+            bottom: 0
+        }
+  </style>
+<body>
+    <div class="contenido">
+    <div class="table-responsive">
+        <h1>Carrito de Compras</h1>
+        <table id="productosTable" class="table table-bordered table-hover table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, item in carrito.items %}
+                <tr>
+                    <td>{{ item.nombre }}</td>
+                    <td>${{ item.precio }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>${{ item.subtotal|floatformat:2 }}</td>
+                    <td>
+                        {% if id %}
+                            <form method="post" action="{% url 'borrar_prod_carrito' id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash fa-2x"></i> 
+                                </button>
+                            </form>
+                        {% else %}
+                            <span>Producto sin ID</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2>Total: ${{ total }}</h2>
+        <button onclick="window.location.href='{% url 'productos_venta' %}'">Volver a Productos</button>
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

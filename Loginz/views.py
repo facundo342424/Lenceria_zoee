@@ -116,4 +116,5 @@ def estadistica(request):
     return render(request, 'estadistica.html')
 
 
-
+def FAQ(request):
+    return render(request, 'FAQ.html' )

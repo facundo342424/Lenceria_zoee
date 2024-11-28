@@ -1,32 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-  
+
 <head>
-  <style>
+<style>
     body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #FAD0C4 0%, #D8B4E2 50%, #FF69B4 100%);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #FAD0C4 0%, #FFC1CC 50%, #FF69B4 100%);
     }
 
     .contenido {
       text-align: center;
       margin: 20px auto;
-    }
-
-    /* Nueva clase para la barra blanca detrás del título */
-    .titulo-barra {
-      background-color: white; /* Color blanco */
-      padding: 15px;
-      display: inline-block;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
     }
 
     .search-bar {
@@ -57,12 +46,12 @@
 
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 20px; 
       padding: 20px;
       justify-content: center;
-      max-width: 1200px;
-      margin: 0 auto;
+      max-width: 1200px; 
+      margin: 0 auto; 
     }
 
     .grid-item {
@@ -82,12 +71,11 @@
 
     .grid-item img {
       width: 100%;
-      height: 450px;
-      object-fit: cover;
+      height: auto;
     }
 
-    .grid-item h3 {
-      font-size: 18px;
+    .grid-item h1 {
+      font-size: 16px;
       margin: 10px 0;
       color: rgb(24, 22, 23);
     }
@@ -113,60 +101,37 @@
       border: none;
       cursor: pointer;
     }
-
-    .btn-acceder {
-      display: inline-block;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(to right, #eb94d0, rgb(188, 143, 168));
-      color: white;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    }
-
-    .btn-acceder:hover {
-      background: #d9534f;
-      transform: scale(1.05);
-    }
   </style>
 </head>
 
 <body>
   <div class="contenido">
-    <div class="titulo-barra">
-      <h3>Gestión del Administrador</h3>
+    <h3>Productos</h3>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar producto..." onkeyup="searchProducts()">
     </div>
 
-    <div class="grid-container">
-      <div class="grid-item">
-        <img src="{% static 'imagenes/imagen2.jpg' %}" >
-        <h3>Productos</h3>
-        <a href="{% url 'lista_productos' %}" class="btn-acceder">Acceder</a>
-      </div>
-      
-      <div class="grid-item">
-        <img src="{% static 'imagenes/imagen10.jpg' %}" >
-        <h3>Usuarios</h3>
-        <a href="{% url 'lista_user' %}" class="btn-acceder">Acceder</a>
-      </div>
-      
-      <div class="grid-item">
-        <img src="{% static 'imagenes/imagen9.jpg' %}" >
-        <h3>Proveedores</h3>
-        <a href="{% url 'proveedores' %}" class="btn-acceder">Acceder</a>
-      </div>
-
-      <div class="grid-item">
-        <img src="{% static 'imagenes/imagen11.jpg' %}" >
-        <h3>Empleados</h3>
-        <a href="{% url 'empleados' %}" class="btn-acceder">Acceder</a>
-      </div>
-    </div>
+    <div class="grid-container" id="productGrid">
+      {% for producto in productos_venta %}
+          <div class="grid-item">
+              <a href="{% url 'producto_detalle' producto.id_Producto %}">
+                  {% if producto.imagen %}
+                      <img src="{{ producto.imagen.url }}" alt="{{ producto.Nombre }}">
+                  {% else %}
+                      <img src="{% static 'images/default-product.jpg' %}" alt="Imagen no disponible">
+                  {% endif %}
+                  <h1>{{ producto.Nombre }}</h1>
+                  <p>{{ producto.Marca }}</p>
+                  <p class="price">Precio: ${{ producto.Precio|floatformat:2 }}</p>
+                  <button type="button">Ver detalles</button>
+              </a>
+          </div>
+      {% empty %}
+          <p>No hay productos disponibles.</p>
+      {% endfor %}
   </div>
-
+  </div>
 
   <script>
     function searchProducts() {

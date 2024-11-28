@@ -24,4 +24,6 @@ urlpatterns = [
     path('estadistica/',views.estadistica,name='estadistica'),
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('stats_dashboard/', views.stats_dashboard, name='stats_dashboard'),
+    path('FAQ/', views.FAQ , name='FAQ'),
+
 ]
