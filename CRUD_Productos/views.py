@@ -3,9 +3,8 @@ from django.contrib import messages
 from .models import Productos,Stock
 
 def lista(request):
-    producto_lista = Productos.objects.all()
-    return render(request, 'lista.html', {'producto_lista': producto_lista})
-
+    producto_lista = Productos.objects.all()  
+    return render(request, 'lista.html', {'producto_lista': producto_lista}) 
 def Guardar_producto(request):
     if request.method == 'POST':
         Nombre = request.POST['Nombre']

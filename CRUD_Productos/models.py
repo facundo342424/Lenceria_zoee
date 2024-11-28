@@ -7,6 +7,9 @@ class Productos(models.Model):
     Precio = models.DecimalField(max_digits=10, decimal_places=2)
     Color = models.CharField(max_length=100)
     Cantidad = models.DecimalField(max_digits=10, decimal_places=2)
+    imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
+    surl = models.CharField(db_column='sUrl', max_length=250)  
+
 
 
     class Meta:

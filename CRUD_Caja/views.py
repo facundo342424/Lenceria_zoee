@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-def Inicio(request):
-    return render(request,'inicio.html')
+def Cajas(request):
+    return render(request,'cajas.html')
 
 def Apertura_de_caja(request):
     return render(request, 'Apertura_de_caja.html')

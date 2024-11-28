@@ -8,6 +8,7 @@ class Proveedores(models.Model):
     Telefono = models.DecimalField(max_digits=10, decimal_places=2)
     Correo_electronico = models.CharField(max_length=120)
     Dirección= models.CharField(max_length=100)
+    
 
    
 

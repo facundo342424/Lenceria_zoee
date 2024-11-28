@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Empleados
+from Ventas.models import Empleados
 from django.contrib import messages
 
 def empleados(request):

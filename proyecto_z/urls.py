@@ -30,16 +30,11 @@ urlpatterns = [
     path('lista/',include('CRUD_Productos.urls')),
     path('empleados/',include('CRUD_Empleados.urls')),
     path('lista_user/',include('CRUD_Users.urls')),
-    
     path('proveedores/',include('CRUD_Proveedores.urls')),
     path('clientes/',include('CRUD_Clientes.urls')),
-    path('',include('Loginz.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('lista/',include('CRUD_Productos.urls')),
-    path('empleados',include('CRUD_Empleados.urls')),
-    path('lista_user',include('CRUD_Users.urls')),
+    path('lista_ventas/',include('Ventas.urls')),
     
-    path('proveedores',include('CRUD_Proveedores.urls')),
+    
 
 ]
       

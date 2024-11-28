@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Clientes
+from Ventas.models import Clientes
 from django.contrib import messages
 
 def clientes(request):
